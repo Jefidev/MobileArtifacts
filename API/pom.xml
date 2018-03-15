@@ -39,13 +39,29 @@
             <version>${scala.version}</version>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/com.typesafe.play/play -->
+        <!-- https://mvnrepository.com/artifact/io.circe/circe-core -->
         <dependency>
-            <groupId>com.typesafe.play</groupId>
-            <artifactId>play_2.12</artifactId>
-            <version>2.6.12</version>
+            <groupId>io.circe</groupId>
+            <artifactId>circe-core_2.12</artifactId>
+            <version>0.9.1</version>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.github.finagle/finch-core -->
+        <dependency>
+            <groupId>com.github.finagle</groupId>
+            <artifactId>finch-core_2.12</artifactId>
+            <version>0.17.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.finagle/finch-circe -->
+        <dependency>
+            <groupId>com.github.finagle</groupId>
+            <artifactId>finch-circe_2.12</artifactId>
+            <version>0.17.0</version>
+        </dependency>
+
+
 
     </dependencies>
 
