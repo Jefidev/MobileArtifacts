@@ -2,6 +2,8 @@ package BusinessObjects
 
 import java.util.UUID
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
+
 import scala.collection.mutable
 
 /**
