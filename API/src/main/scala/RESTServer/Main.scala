@@ -2,8 +2,11 @@ package RESTServer
 
 import com.twitter.finagle.Http
 import com.twitter.util.Await
-import io.finch.{Application, Endpoint, Ok}
-import io.finch.syntax.get
+import io.finch._
+import io.finch.circe._
+import io.finch.syntax._
+import io.circe.generic.auto._
+
 
 /**
   * Created by jfink on 09/03/18.
@@ -11,17 +14,13 @@ import io.finch.syntax.get
 
 //https://finagle.github.io/blog/2014/12/10/rest-apis-with-finch/
 
-object Main{
+object Main extends App{
 
-  case class Payload(payload:String)
+  case class Message(payload:String)
 
-  def main(args: Array[String]): Unit = {
-
-  }
-/*
-  val bleh: Endpoint[Payload] = get("hello"){
-    Ok(Payload("Hello"))
+  val bleh: Endpoint[Message] = get("hello"){
+    Ok(Message("Hello"))
   }
 
-  Await.ready(Http.server.serve(":8081", bleh.toService))*/
+  Await.ready(Http.server.serve(":8081", bleh.toServiceAs[Application.Json]))
 }
