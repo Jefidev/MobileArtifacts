@@ -2,13 +2,11 @@ package BusinessObjects
 
 import java.util.Collections
 
+import scala.util.{Success, Try}
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
-import com.google.api.client.http.HttpTransport
 import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.JsonFactory
 import com.google.api.client.json.jackson2.JacksonFactory
-import querydsl.UserData
 
 
 /**
@@ -23,11 +21,13 @@ object User {
       .build()
 
 
-  def verify(token:String): Boolean = {
-    val idToken:Option[GoogleIdToken] = Option(verifier.verify(token))
+  def verify(token:String):Boolean = {
+    println(token)
+    val idToken:Try[Option[GoogleIdToken]] = Try(Option(verifier.verify(token)))
+
     idToken match {
-      case None => false
-      case Some(_) => true
+      case Success(Some(_)) => true
+      case _ => false
     }
   }
 }
