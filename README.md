@@ -16,6 +16,8 @@ proceed as follow
 la base de données sera bien crée et écoutera sur le port 3307 avec comme user "root"
 et mot de passe "mobile2018"
 
+Une fois connecté à la base de données avec le client de votre choix, créés un nouveau schéma appelé 'mobile' 
+
 pour la stoper exécuter un
 - docker stop mobile2018
 
