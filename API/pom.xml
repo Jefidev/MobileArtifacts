@@ -293,6 +293,7 @@
                     <packageName>querydsl</packageName>
                     <beanPackageName>querydsl</beanPackageName>
                     <targetFolder>${project.basedir}/target/generated-sources/scala</targetFolder>
+                    <sourceFolder/>
                 </configuration>
                 <dependencies>
                     <dependency>
