@@ -1,12 +1,13 @@
 package RESTServer
 
-import BusinessObjects.{Login, User}
+import BusinessObjects.{Message, Orchestrators, User}
 import com.twitter.finagle.Http
 import com.twitter.util.Await
 import io.finch._
 import io.finch.circe._
 import io.finch.syntax._
 import io.circe.generic.auto._
+import querydsl.UsersData
 
 
 /**
@@ -17,11 +18,17 @@ import io.circe.generic.auto._
 
 object Main extends App{
 
-  case class Message(payload:String)
+  val authApp:Endpoint[Option[UsersData]] = header("token").mapOutput(s =>
+    Ok(User.createOrRetrieve(s))
+  ).handle{
+    case e : Error.NotPresent => Unauthorized(e)
+  }
 
-  val auth:Endpoint[Message] = header("token").mapOutput(s =>
-    if(User.verify(s)) Ok(Message("Login successful"))
-    else Ok(Message("Invalid toket"))
+  val authOrchestrator:Endpoint[Boolean] = header("token").mapOutput(s =>
+    if(Orchestrators.verify(s))
+      Ok(true)
+    else
+      Unauthorized(new Exception("Bad login"))
   ).handle{
     case e : Error.NotPresent => Unauthorized(e)
   }
@@ -30,12 +37,20 @@ object Main extends App{
     Ok(Message("Hello"))
   }
 
-  val login:Endpoint[Message] = get("login" :: auth){m:Message =>
-    Ok(m)
+  val login:Endpoint[Message] = get("login" :: authApp){m:Option[UsersData] =>
+    m match {
+      case Some(u) => Ok(Message("Success"))
+      case _ => Ok(Message("Failure"))
+    }
   }
 
 
-  val api = (login :+: bleh).toServiceAs[Application.Json]
+  val loginOrch:Endpoint[Message] = get("sensors" :: "login" :: authOrchestrator){m:Boolean =>
+    Ok(Message("Success"))
+  }
+
+
+  val api = (login :+: bleh :+: loginOrch).toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))
 }

@@ -6,6 +6,8 @@ drop table if exists Orchestrators;
 
 drop table if exists Done;
 
+drop table if exists Accomplished;
+
 drop table if exists Events;
 
 drop table if exists Users;

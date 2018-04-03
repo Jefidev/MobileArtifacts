@@ -7,6 +7,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
+import querydsl.UsersData
+import repositories.UsersRepository
 
 
 /**
@@ -20,6 +22,7 @@ object User {
       .setAudience(Collections.singletonList("435471669940-i0d6ksrnkc87mmbvpqvh121uspp9qur1.apps.googleusercontent.com"))
       .build()
 
+  val usersRepository = new UsersRepository
 
   def verify(token:String):Boolean = {
     println(token)
@@ -28,6 +31,23 @@ object User {
     idToken match {
       case Success(Some(_)) => true
       case _ => false
+    }
+  }
+
+  def getMail(token:String):Option[String] = {
+    val idToken:Try[Option[GoogleIdToken]] = Try(Option(verifier.verify(token)))
+
+    idToken match {
+      case Success(Some(x)) => Some(x.getPayload.getEmail)
+      case _ => None
+    }
+  }
+
+
+  def createOrRetrieve(token:String):Option[UsersData] = {
+    getMail(token) match{
+      case Some(x) => Option(usersRepository.createOrRetrieve(x))
+      case _ => None
     }
   }
 }
