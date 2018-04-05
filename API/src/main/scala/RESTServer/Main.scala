@@ -1,6 +1,6 @@
 package RESTServer
 
-import BusinessObjects.{Message, Orchestrators, User}
+import BusinessObjects.{Coordinate, Message, Orchestrators, User}
 import com.twitter.finagle.Http
 import com.twitter.util.Await
 import io.finch._
@@ -50,7 +50,17 @@ object Main extends App{
   }
 
 
-  val api = (login :+: bleh :+: loginOrch).toServiceAs[Application.Json]
+  //ENDPOINT FOR NEIGHBOORHOOD
+  val retrieveCoordinateBody = jsonBody[Coordinate]
+  val getNeighbourhood:Endpoint[Message] = post("neighbourhood" :: "name" :: retrieveCoordinateBody){
+    c:Coordinate =>
+      println(c.lat)
+      println(c.long)
+      Ok(Message("echo"))
+  }
+
+
+  val api = (login :+: bleh :+: loginOrch :+: getNeighbourhood).toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))
 }
