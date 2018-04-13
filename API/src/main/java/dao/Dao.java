@@ -13,8 +13,7 @@ import java.util.logging.Logger;
 
 /**
  * DAO is an abstract object aimed to create a base for DAO objects
- * 
- * @author lauevrar
+ *
  */
 public abstract class Dao {
     

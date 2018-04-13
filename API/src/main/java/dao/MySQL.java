@@ -9,7 +9,6 @@ import javax.inject.Provider;
 
 /**
  * MySQl is an util class aimed to get a MySQL queryFactory
- * @author lauevrar
  */
 public class MySQL {
     
