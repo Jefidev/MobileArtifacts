@@ -21,4 +21,12 @@ public class UsersRepository extends Dao {
         return d;
     }
 
+    public void updateUser(String id, UsersData u){
+        QUsers users = new QUsers("Users");
+        this.queryFactory.update(users).where(users.idUsers.eq(id))
+                .set(users.rfid, u.getRfid())
+                .set(users.name, u.getName())
+                .execute();
+    }
+
 }

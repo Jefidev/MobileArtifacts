@@ -37,14 +37,6 @@ object Main extends App{
     Ok(Message("Hello"))
   }
 
-  val login:Endpoint[Message] = get("login" :: authApp){m:Option[UsersData] =>
-    m match {
-      case Some(u) => Ok(Message("Success"))
-      case _ => Ok(Message("Failure"))
-    }
-  }
-
-
   val loginOrch:Endpoint[Message] = get("sensors" :: "login" :: authOrchestrator){m:Boolean =>
     Ok(Message("Success"))
   }
@@ -60,7 +52,8 @@ object Main extends App{
   }
 
 
-  val api = (login :+: bleh :+: loginOrch :+: getNeighbourhood).toServiceAs[Application.Json]
+  val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+:
+    bleh :+: loginOrch :+: getNeighbourhood).toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))
 }

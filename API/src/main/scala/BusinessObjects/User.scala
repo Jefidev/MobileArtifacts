@@ -50,4 +50,8 @@ object User {
       case _ => None
     }
   }
+
+  def updateUser(usersData: UsersData):Unit = {
+    usersRepository.updateUser(usersData.getIdUsers, usersData)
+  }
 }
