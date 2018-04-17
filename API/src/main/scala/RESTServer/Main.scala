@@ -52,7 +52,8 @@ object Main extends App{
   }
 
 
-  val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+:
+  val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+: Profile.bleh :+:
+    AchievementsAPI.achievements :+:
     bleh :+: loginOrch :+: getNeighbourhood).toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))

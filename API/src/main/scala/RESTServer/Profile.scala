@@ -13,13 +13,14 @@ import BusinessObjects.User
 object Profile {
 
   val login:Endpoint[LoginMessage] = get("login" :: Main.authApp){ m:Option[UsersData] =>
+    println("Login endpoint")
     m match {
       case Some(u) => Ok(LoginMessage(true, u.getRfid))
       case _ => Ok(LoginMessage(false, "0"))
     }
   }
 
-  val rfid:Endpoint[Message] = get("rfid" :: path[String] :: Main.authApp){ (r:String, m:Option[UsersData]) =>
+  val rfid:Endpoint[Message] = post("rfid" :: path[String] :: Main.authApp){ (r:String, m:Option[UsersData]) =>
     m match {
       case Some(u) => {
         u.setRfid(r)
@@ -37,5 +38,9 @@ object Profile {
       }
       case _ => Ok(Message("Failure"))
     }
+  }
+
+  val bleh: Endpoint[Message] = get("profil"){
+    Ok(Message("Hello"))
   }
 }
