@@ -1,13 +1,13 @@
 package RESTServer
 
-import BusinessObjects.{Coordinate, Message, Orchestrators, User}
+import BusinessObjects._
 import com.twitter.finagle.Http
 import com.twitter.util.Await
 import io.finch._
 import io.finch.circe._
 import io.finch.syntax._
 import io.circe.generic.auto._
-import querydsl.UsersData
+import querydsl.{NeighbourhoodData, UsersData}
 
 
 /**
@@ -33,6 +33,15 @@ object Main extends App{
     case e : Error.NotPresent => Unauthorized(e)
   }
 
+  val retrieveNeighbourhood = jsonBody[Coordinate].mapOutput(c =>
+    Neighbourhoods.getNeighbourhood(c) match {
+      case Some(x) => Ok(x)
+      case _ => NotFound(new Exception("bleh"))
+    }
+  ) handle{
+    case e : Exception => NotFound(e)
+  }
+
   val bleh: Endpoint[Message] = get("hello"){
     Ok(Message("Hello"))
   }
@@ -42,18 +51,9 @@ object Main extends App{
   }
 
 
-  //ENDPOINT FOR NEIGHBOORHOOD
-  val retrieveCoordinateBody = jsonBody[Coordinate]
-  val getNeighbourhood:Endpoint[Message] = post("neighbourhood" :: "name" :: retrieveCoordinateBody){
-    c:Coordinate =>
-      println(c.lat)
-      println(c.long)
-      Ok(Message("echo"))
-  }
-
-
-  val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+:
-    bleh :+: loginOrch :+: getNeighbourhood).toServiceAs[Application.Json]
+  val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+: Profile.bleh :+: Profile.getCurrentNeighbourhood :+:
+    AchievementsAPI.achievements :+:
+    bleh :+: loginOrch).toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))
 }
