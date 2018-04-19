@@ -3,7 +3,7 @@ create table Sensors (
   name varchar(255),
   type int,
   orchestrator int,
-  lasValur float,
+  lastValue float,
   FOREIGN KEY (`orchestrator`)
   REFERENCES `mobile`.`Orchestrators` (`token`)
 )

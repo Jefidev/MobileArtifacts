@@ -4,7 +4,7 @@ import BusinessObjects.{LoginMessage, Message}
 import io.finch.{Endpoint, Ok}
 import io.finch.syntax._
 import io.finch._
-import querydsl.UsersData
+import querydsl.{NeighbourhoodData, UsersData}
 import BusinessObjects.User
 
 /**
@@ -38,6 +38,15 @@ object Profile {
       }
       case _ => Ok(Message("Failure"))
     }
+  }
+
+
+  val getCurrentNeighbourhood:Endpoint[Message] = post("profile" :: "neighbourhood" :: Main.authApp :: Main.retrieveNeighbourhood){
+    (m:Option[UsersData], n:NeighbourhoodData) =>
+      m match {
+        case Some(u) => Ok(Message(n.getName))
+        case _ => Ok(Message("failure"))
+      }
   }
 
   val bleh: Endpoint[Message] = get("profil"){
