@@ -7,4 +7,4 @@ create table Orchestrators (
 )
 ENGINE = InnoDB;
 
-insert into Orchestrators values ('269544d3-99e7-4c52-b1c4-660f4a59df3', 'Raspberry', 1)
+insert into Orchestrators values ('269544d3-99e7-4c52-b1c4-660f4a59df32', 'Raspberry', 1)

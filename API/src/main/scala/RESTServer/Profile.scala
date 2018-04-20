@@ -41,7 +41,7 @@ object Profile {
   }
 
 
-  val getCurrentNeighbourhood:Endpoint[Message] = post("profile" :: "neighbourhood" :: Main.authApp :: Main.retrieveNeighbourhood){
+  val getCurrentNeighbourhood:Endpoint[Message] = get("profile" :: "neighbourhood" :: Main.authApp :: Main.retrieveNeighbourhood){
     (m:Option[UsersData], n:NeighbourhoodData) =>
       m match {
         case Some(u) => Ok(Message(n.getName))

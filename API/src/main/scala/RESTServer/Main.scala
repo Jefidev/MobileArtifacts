@@ -24,9 +24,9 @@ object Main extends App{
     case e : Error.NotPresent => Unauthorized(e)
   }
 
-  val authOrchestrator:Endpoint[Boolean] = header("token").mapOutput(s =>
+  val authOrchestrator:Endpoint[String] = header("token").mapOutput(s =>
     if(Orchestrators.verify(s))
-      Ok(true)
+      Ok(s)
     else
       Unauthorized(new Exception("Bad login"))
   ).handle{
@@ -46,14 +46,10 @@ object Main extends App{
     Ok(Message("Hello"))
   }
 
-  val loginOrch:Endpoint[Message] = get("sensors" :: "login" :: authOrchestrator){m:Boolean =>
-    Ok(Message("Success"))
-  }
 
 
   val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+: Profile.bleh :+: Profile.getCurrentNeighbourhood :+:
-    AchievementsAPI.achievements :+:
-    bleh :+: loginOrch).toServiceAs[Application.Json]
+    AchievementsAPI.achievements :+: bleh :+: SensorsAPI.testEndpoint).toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))
 }

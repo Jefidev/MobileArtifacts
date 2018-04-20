@@ -11,11 +11,13 @@ import io.finch._
   */
 object SensorsAPI {
 
-  def testEndpoint:Endpoint[Message] = get("orchestrator" :: "test" :: Main.authOrchestrator){ s:Boolean =>
-    s match {
-      case true => Ok(Message("Success"))
-      case _ => Ok(Message("Failure"))
-    }
+  def testEndpoint:Endpoint[Message] = get("orchestrator" :: "test" :: Main.authOrchestrator){ s:String =>
+    println("Success raspberry")
+    Ok(Message("Success"))
+  }
+
+  def updateValue:Endpoint[Message] = post("orchestrator" :: "value" :: Main.authOrchestrator){ s:String =>
+    Ok(Message("yeah"))
   }
 
 }
