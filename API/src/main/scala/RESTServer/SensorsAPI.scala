@@ -21,8 +21,6 @@ object SensorsAPI {
 
   def updateValue:Endpoint[Message] = post("orchestrator" :: "value" :: Main.authOrchestrator :: Main.parseSensor){
     (s:String, value:SensorValue)=> {
-      println(s)
-      println(value.lastVal)
       repo.setValue(s, value.id, value.lastVal)
       Ok(Message("Success"))
     }

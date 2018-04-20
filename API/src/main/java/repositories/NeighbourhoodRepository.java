@@ -69,4 +69,9 @@ public class NeighbourhoodRepository extends Dao {
         return this.queryFactory.select(n).from(n).fetch();
     }
 
+    public NeighbourhoodData getOne(String s){
+        QNeighbourhood n = new QNeighbourhood("Neighbourhoods");
+        return this.queryFactory.select(n).from(n).where(n.name.eq(s)).fetchFirst();
+    }
+
 }

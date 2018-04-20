@@ -48,11 +48,19 @@ object Profile {
       }
   }
 
-  val getAllNeighbourhood:Endpoint[List[NeighbourhoodData]] = get("neighbourhoods" :: Main.authApp){
+  val getAllNeighbourhood:Endpoint[List[String]] = get("neighbourhoods" :: Main.authApp){
     (m:Option[UsersData]) =>
       m match {
         case Some(u) => Ok(Neighbourhoods.getAll())
-        case _ => Ok(List[NeighbourhoodData]())
+        case _ => Ok(List[String]())
+      }
+  }
+
+  val getNeighbourhoodByName:Endpoint[NeighbourhoodData] = get("neighbourhood" :: path[String] :: Main.authApp){
+    (s:String, m:Option[UsersData]) =>
+      m match {
+        case Some(u) => Ok(Neighbourhoods.getByName(s))
+        case _ => Ok(Neighbourhoods.getByName(s))
       }
   }
 

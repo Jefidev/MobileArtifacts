@@ -15,8 +15,11 @@ object Neighbourhoods {
     Option(repo.getNeighbourhood(c))
   }
 
-  def getAll():List[NeighbourhoodData] = {
-    repo.getAll.asScala.toList
+  def getAll():List[String] = {
+    for( i <- repo.getAll.asScala.toList) yield i.getName
   }
-  
+
+  def getByName(s:String):NeighbourhoodData = {
+    repo.getOne(s)
+  }
 }

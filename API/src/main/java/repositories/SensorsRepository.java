@@ -15,7 +15,5 @@ public class SensorsRepository extends Dao {
         this.queryFactory.update(sensor)
                 .where(sensor.id.eq(id).and(sensor.orchestrator.eq(orchestrator)))
                 .set(sensor.lastValue, value).execute();
-
-        System.out.println(id);
     }
 }
