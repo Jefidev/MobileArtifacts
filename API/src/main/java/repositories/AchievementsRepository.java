@@ -20,7 +20,7 @@ public class AchievementsRepository extends Dao {
         QAchievements ach = new QAchievements("Achievements");
         QDone done = new QDone("Done");
 
-        List<Tuple> tmp = this.queryFactory.select(ach.id, ach.name, ach.description, done)
+        List<Tuple> tmp = this.queryFactory.select(ach.id, ach.name, ach.description, ach.points ,done)
                 .from(ach)
                 .leftJoin(SQLExpressions.selectFrom(done).where(done.userId.eq(u.getIdUsers())), done)
                 .on(ach.id.eq(done.achievementId))
@@ -28,7 +28,7 @@ public class AchievementsRepository extends Dao {
 
         List<Achievement> retVal = new ArrayList<>();
         for(Tuple t: tmp){
-            Achievement a = new Achievement(t.get(ach.id), t.get(ach.name), t.get(ach.description), t.get(done) != null);
+            Achievement a = new Achievement(t.get(ach.id), t.get(ach.name), t.get(ach.description), t.get(done) != null, t.get(ach.points));
             retVal.add(a);
         }
 

@@ -18,6 +18,9 @@ import querydsl.{NeighbourhoodData, UsersData}
 
 object Main extends App{
 
+  //Parsing json value
+  val parseSensor:Endpoint[SensorValue] = jsonBody[SensorValue]
+
   val authApp:Endpoint[Option[UsersData]] = header("token").mapOutput(s =>
     Ok(User.createOrRetrieve(s))
   ).handle{
@@ -45,7 +48,6 @@ object Main extends App{
   val bleh: Endpoint[Message] = get("hello"){
     Ok(Message("Hello"))
   }
-
 
 
   val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+: Profile.bleh :+: Profile.getCurrentNeighbourhood :+:

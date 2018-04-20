@@ -2,6 +2,7 @@ package repositories;
 
 import dao.Dao;
 import querydsl.QOrchestrators;
+import querydsl.QSensors;
 
 /**
  * Created by jfink on 17/04/18.
@@ -9,7 +10,10 @@ import querydsl.QOrchestrators;
 public class SensorsRepository extends Dao {
 
     public void setValue(String orchestrator, int id , float value){
+        QSensors sensor = new QSensors("Sensors");
 
-        QOrchestrators orches = new QOrchestrators("Orchestrator");
+        this.queryFactory.update(sensor)
+                .where(sensor.id.eq(id).and(sensor.orchestrator.eq(orchestrator)))
+                .set(sensor.lastValue, value).execute();
     }
 }
