@@ -1,11 +1,10 @@
 package RESTServer
 
-import BusinessObjects.{LoginMessage, Message}
+import BusinessObjects.{LoginMessage, Message, Neighbourhoods, User}
 import io.finch.{Endpoint, Ok}
 import io.finch.syntax._
 import io.finch._
 import querydsl.{NeighbourhoodData, UsersData}
-import BusinessObjects.User
 
 /**
   * Created by jfink on 13/04/18.
@@ -46,6 +45,14 @@ object Profile {
       m match {
         case Some(u) => Ok(Message(n.getName))
         case _ => Ok(Message("failure"))
+      }
+  }
+
+  val getAllNeighbourhood:Endpoint[List[NeighbourhoodData]] = get("neighbourhoods" :: Main.authApp){
+    (m:Option[UsersData]) =>
+      m match {
+        case Some(u) => Ok(Neighbourhoods.getAll())
+        case _ => Ok(List[NeighbourhoodData]())
       }
   }
 

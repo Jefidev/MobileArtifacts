@@ -1,11 +1,11 @@
 package RESTServer
 
-import BusinessObjects.{Coordinate, Message, SensorValue}
+import BusinessObjects.{Message, SensorValue}
 import io.finch.{Endpoint, Ok}
 import io.finch.syntax._
 import io.finch._
+import querydsl.SensorsData
 import repositories.SensorsRepository
-import io.circe.generic.auto._
 
 /**
   * Created by jfink on 17/04/18.
