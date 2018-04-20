@@ -51,7 +51,7 @@ object Main extends App{
 
 
   val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+: Profile.bleh :+: Profile.getCurrentNeighbourhood :+:
-    Profile.getAllNeighbourhood :+:
+    Profile.getAllNeighbourhood :+: Profile.getNeighbourhoodByName :+:
     AchievementsAPI.achievements :+: bleh :+: SensorsAPI.testEndpoint :+: SensorsAPI.updateValue)
     .toServiceAs[Application.Json]
 

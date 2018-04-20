@@ -1,6 +1,6 @@
 package RESTServer
 
-import BusinessObjects.{LoginMessage, Message, Neighbourhoods, User}
+import BusinessObjects._
 import io.finch.{Endpoint, Ok}
 import io.finch.syntax._
 import io.finch._
@@ -48,15 +48,15 @@ object Profile {
       }
   }
 
-  val getAllNeighbourhood:Endpoint[List[String]] = get("neighbourhoods" :: Main.authApp){
+  val getAllNeighbourhood:Endpoint[MessageList] = get("neighbourhoods" :: Main.authApp){
     (m:Option[UsersData]) =>
       m match {
-        case Some(u) => Ok(Neighbourhoods.getAll())
-        case _ => Ok(List[String]())
+        case Some(u) => Ok(MessageList(Neighbourhoods.getAll()))
+        case _ => Ok(MessageList(List[String]()))
       }
   }
 
-  val getNeighbourhoodByName:Endpoint[NeighbourhoodData] = get("neighbourhood" :: path[String] :: Main.authApp){
+  val getNeighbourhoodByName:Endpoint[NeighbourhoodInfo] = get("neighbourhood" :: path[String] :: Main.authApp){
     (s:String, m:Option[UsersData]) =>
       m match {
         case Some(u) => Ok(Neighbourhoods.getByName(s))

@@ -19,7 +19,11 @@ object Neighbourhoods {
     for( i <- repo.getAll.asScala.toList) yield i.getName
   }
 
-  def getByName(s:String):NeighbourhoodData = {
-    repo.getOne(s)
+  def getByName(s:String):NeighbourhoodInfo = {
+    val n:NeighbourhoodData = repo.getOne(s)
+    val listSensors = for(i <- repo.getSensorsByNeighbourhood(n.getId).asScala.toList)
+      yield SensorInfo(i.getType, i.getName, i.getLastValue)
+
+    NeighbourhoodInfo(n.getName, n.getDescription, listSensors)
   }
 }

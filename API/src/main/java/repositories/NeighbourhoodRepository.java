@@ -74,4 +74,14 @@ public class NeighbourhoodRepository extends Dao {
         return this.queryFactory.select(n).from(n).where(n.name.eq(s)).fetchFirst();
     }
 
+
+    public List<SensorsData> getSensorsByNeighbourhood(int idNeighbourhood){
+        QOrchestrators orch = new QOrchestrators("Orchestrators");
+        QSensors sensors = new QSensors("Sensors");
+
+        return this.queryFactory.select(sensors).from(sensors).innerJoin(orch)
+                .on(orch.token.eq(sensors.orchestrator))
+                .where(orch.neighbourhood.eq(idNeighbourhood)).fetch();
+    }
+
 }
