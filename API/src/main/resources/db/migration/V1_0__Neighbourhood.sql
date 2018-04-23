@@ -25,7 +25,7 @@ create table lien (
 ENGINE = InnoDB;
 
 insert into Neighbourhood VALUES (DEFAULT, 'Centre', 'Sa place, ses églises, ses commerces');
-insert into Neighbourhood VALUES (DEFAULT, 'Facultés', 'La connaissance est en elle-même puissance.');
+insert into Neighbourhood VALUES (DEFAULT, 'Citadelle', 'Du haut de la citadelle, quarante siecles vous contemplent');
 
 insert into Coordinates VALUES (DEFAULT, 50.462848, 4.857915);
 insert into Coordinates VALUES (DEFAULT, 50.4616841, 4.8627377);
