@@ -8,7 +8,11 @@ case class Event(eType: Int, id: Int, key: Int)
 case class Message(payload:String)
 case class Coordinate(lat:Float, longi:Float)
 case class LoginMessage(success:Boolean, rfid:String)
+
 case class Achievement(id:Int, name:String, desc:String, done:Boolean, points:Int)
+case class EventsDetail(id:Int, name:String, description:String, done:Boolean)
+case class AchievementDetail(achievement:Achievement, events:List[EventsDetail])
+
 case class SensorValue(id:Int, lastVal:Float)
 case class SensorInfo(sType:Int, name:String, value:Float)
 case class NeighbourhoodInfo(name:String, description:String, sensors:List[SensorInfo])

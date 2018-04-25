@@ -17,4 +17,10 @@ object Achievements {
     repo.getAllAchievements(u).asScala.toList
   }
 
+  def retrieveAchievementDetail(u:UsersData, id:Int):AchievementDetail = {
+    val ach:Achievement = repo.getAchievement(u, id)
+    val events:List[EventsDetail] = repo.getDetails(u, id).asScala.toList
+    AchievementDetail(ach, events)
+  }
+
 }
