@@ -20,6 +20,7 @@ object Main extends App{
 
   //Parsing json value
   val parseSensor:Endpoint[SensorValue] = jsonBody[SensorValue]
+  val parseSecret:Endpoint[Secret] = jsonBody[Secret]
 
   val authApp:Endpoint[Option[UsersData]] = header("token").mapOutput(s =>
     Ok(User.createOrRetrieve(s))
@@ -52,7 +53,8 @@ object Main extends App{
 
   val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+: Profile.bleh :+: Profile.getCurrentNeighbourhood :+:
     Profile.getAllNeighbourhood :+: Profile.getNeighbourhoodByName :+:
-    AchievementsAPI.achievements :+: bleh :+: SensorsAPI.testEndpoint :+: SensorsAPI.updateValue)
+    bleh :+: SensorsAPI.testEndpoint :+: SensorsAPI.updateValue
+    :+: AchievementsAPI.achievement :+: AchievementsAPI.achievements :+: AchievementsAPI.validateEvent)
     .toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))
