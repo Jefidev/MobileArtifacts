@@ -26,17 +26,18 @@ object AchievementsAPI {
   }
 
 
-  val validateEvent:Endpoint[Message] = post("achievement" :: "read" :: path[Int] :: Main.parseSecret :: Main.authApp){
+  val validateEvent:Endpoint[MessageCode] = post("achievement" :: "read" :: path[Int] :: Main.parseSecret :: Main.authApp){
     (idEvent:Int, s:Secret, m:Option[UsersData]) =>
       m match {
         case Some(u) => {
           Achievements.validateEvent(u, s.secret, idEvent)
-          Ok(Message("Success"))
+          Ok(MessageCode("Success", 1))
         }
-        case None => Ok(Message("Failure: Not authenticated"))
+        case None => Ok(MessageCode("Not authenticated", 2))
       }
   }.handle{
-    case e:Error => Ok(Message(e.getMessage))
+    case e:EventException => Ok(MessageCode(e.message, e.code))
+    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme", 42))
   }
 
 }

@@ -33,7 +33,7 @@ object Achievements {
     if(event.getSecret == secret)
       true
     else
-      throw new Error("Bad secret")
+      throw new EventException("Bad secret", 2)
 
   }
 
@@ -44,7 +44,7 @@ object Achievements {
     if(contextBroken == 0 )
       true
     else
-      throw new Error("Contexte not respected")
+      throw new EventException("Contexte not respected", 3)
   }
 
   def validateEvent(u:UsersData, secret:String, id:Int) = {
