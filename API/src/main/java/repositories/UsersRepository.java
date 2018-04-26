@@ -29,4 +29,10 @@ public class UsersRepository extends Dao {
                 .execute();
     }
 
+
+    public UsersData getByID(String id){
+        QUsers users = new QUsers("Users");
+        return this.queryFactory.selectFrom(users).where(users.idUsers.eq(id)).fetchFirst();
+    }
+
 }

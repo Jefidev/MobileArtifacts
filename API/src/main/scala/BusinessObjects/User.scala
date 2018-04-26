@@ -54,4 +54,8 @@ object User {
   def updateUser(usersData: UsersData):Unit = {
     usersRepository.updateUser(usersData.getIdUsers, usersData)
   }
+
+  def getUserByMail(id:String):UsersData = {
+    usersRepository.getByID(id)
+  }
 }

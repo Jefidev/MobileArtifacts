@@ -55,10 +55,16 @@ object Main extends App{
   }
 
 
+  val testAch:Endpoint[AchievementDetail] = get("test" :: "detail" :: path[Int]){ (s:Int) =>
+    val u: UsersData = User.getUserByMail("jeromefink@hotmail.com")
+    Ok(Achievements.retrieveAchievementDetail(u, s))
+  }
+
   val api = (Profile.login :+: Profile.rfid :+: Profile.rfidGet :+: Profile.bleh :+: Profile.getCurrentNeighbourhood :+:
     Profile.getAllNeighbourhood :+: Profile.getNeighbourhoodByName :+:
     bleh :+: SensorsAPI.testEndpoint :+: SensorsAPI.updateValue
-    :+: AchievementsAPI.achievement :+: AchievementsAPI.achievements :+: AchievementsAPI.validateEvent)
+    :+: AchievementsAPI.achievement :+: AchievementsAPI.achievements :+: AchievementsAPI.validateEvent
+    :+: testAch)
     .toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))

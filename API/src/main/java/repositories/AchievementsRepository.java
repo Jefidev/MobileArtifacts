@@ -48,7 +48,8 @@ public class AchievementsRepository extends Dao {
                 .where(ach.id.eq(id))
                 .fetchFirst();
 
-        return new Achievement(t.get(ach.id), t.get(ach.name), t.get(ach.description), t.get(done) != null, t.get(ach.points));
+
+        return new Achievement(t.get(ach.id), t.get(ach.name), t.get(ach.description), t.get(done).getUserId() != null, t.get(ach.points));
     }
 
     public List<EventsDetail> getDetails(String u, int id){
@@ -65,7 +66,7 @@ public class AchievementsRepository extends Dao {
 
         List<EventsDetail> result = new ArrayList<>();
         for(Tuple t : tmp){
-            EventsDetail e = new EventsDetail(t.get(event.id), t.get(event.name), t.get(event.description), t.get(accomp) != null);
+            EventsDetail e = new EventsDetail(t.get(event.id), t.get(event.name), t.get(event.description), t.get(accomp).getIdUser() != null);
             result.add(e);
         }
 
