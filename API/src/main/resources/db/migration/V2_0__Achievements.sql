@@ -6,6 +6,6 @@ create table Achievements (
 )
 ENGINE = InnoDB;
 
-insert into Achievements VALUES (DEFAULT, 'Beffroi de Namur', 'Du haut de ce Beffroi, 600 ans vous contemples', 100);
-insert into Achievements VALUES (DEFAULT, 'Route merveilleuse', 'Vous avez survécut à l''assention ce la citadelle', 100);
-insert into Achievements VALUES (DEFAULT, 'Coucher de soleil citadelle', 'Du haut de ce Beffroi, 600 ans vous contemples', 100);
+insert into Achievements VALUES (DEFAULT, 'Beffroi de Namur', 'Du haut de ce Beffroi, 600 ans vous contemplent', 100);
+insert into Achievements VALUES (DEFAULT, 'Route merveilleuse', 'Vous avez survécu à l''ascension ce la citadelle', 100);
+insert into Achievements VALUES (DEFAULT, 'Coucher de soleil citadelle', 'Du haut de la citadelle, 600 ans vous contemplent', 100);

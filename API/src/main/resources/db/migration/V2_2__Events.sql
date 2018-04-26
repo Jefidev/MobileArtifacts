@@ -28,7 +28,7 @@ insert into Events values (default, 0, 'Trouvez et scannez le signe du Beffroi',
 insert into Events values (default, 1, 'Départ de la route', 2, 'KYT-2-900', null, 'Enregistrement du départ');
 insert into Events values (default, 1, 'Arrivée de la route', 2, 'KYT-3-254', 2, 'Validation du trajet');
 
-insert into Events values (default, 0, 'Départ de la route', 2, 'KYT-4-247', null, 'Enregistrement du départ');
+insert into Events values (default, 0, 'Coucher de soleil', 3, 'KYT-4-247', null, 'Scan du signe entre 16h et 18h');
 insert into Contexts values (4, 2, 100, 50);
 
 
