@@ -24,7 +24,7 @@ create table lien (
 )
 ENGINE = InnoDB;
 
-insert into Neighbourhood VALUES (DEFAULT, 'St Aubain', 'Sa place, ses églises, ses commerces');
+insert into Neighbourhood VALUES (DEFAULT, 'St_Aubain', 'Sa place, ses églises, ses commerces');
 insert into Neighbourhood VALUES (DEFAULT, 'Citadelle', 'Du haut de la citadelle, quarante siecles vous contemplent');
 
 insert into Coordinates VALUES (DEFAULT, 50.462848, 4.857915);

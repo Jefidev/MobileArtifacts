@@ -48,7 +48,7 @@ object Achievements {
   }
 
   def validateEvent(u:UsersData, secret:String, id:Int) = {
-    if(alreadyDone(u, id)){
+    if(!alreadyDone(u, id)){
       checkSecret(secret, id)
       checkContext(id)
       //Mark as done
