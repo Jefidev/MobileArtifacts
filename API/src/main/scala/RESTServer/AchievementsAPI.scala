@@ -10,31 +10,19 @@ import querydsl.UsersData
   */
 object AchievementsAPI {
 
-  val achievements:Endpoint[List[Achievement]] = get("achievements" :: Main.authApp){ m:Option[UsersData] =>
-    m match {
-      case Some(u) => Ok(Achievements.retrieveAchievements(u))
-      case _ => Ok(List[Achievement]())
-    }
+  val achievements:Endpoint[List[Achievement]] = get("achievements" :: Main.authApp){ u:UsersData =>
+    Ok(Achievements.retrieveAchievements(u))
   }
 
   val achievement:Endpoint[AchievementDetail] = get("achievement" :: "detail" :: path[Int] :: Main.authApp){
-    (s:Int, m:Option[UsersData]) =>
-      m match {
-        case Some(u) => Ok(Achievements.retrieveAchievementDetail(u, s))
-        case _ => NotFound(new Exception("bleh"))
-      }
+    (s:Int, u:UsersData) => Ok(Achievements.retrieveAchievementDetail(u, s))
   }
 
 
   val validateEvent:Endpoint[MessageCode] = post("achievement" :: "read" :: path[Int] :: Main.parseSecret :: Main.authApp){
-    (idEvent:Int, s:Secret, m:Option[UsersData]) =>
-      m match {
-        case Some(u) => {
+    (idEvent:Int, s:Secret, u:UsersData) =>
           Achievements.validateEvent(u, s.secret, idEvent)
           Ok(MessageCode("Success", 1))
-        }
-        case None => Ok(MessageCode("Not authenticated", 2))
-      }
   }.handle{
     case e:EventException => Ok(MessageCode(e.message, e.code))
     case e:Exception => Ok(MessageCode("System exception. Contact Jérôme", 42))

@@ -11,57 +11,32 @@ import querydsl.{NeighbourhoodData, UsersData}
   */
 object Profile {
 
-  val login:Endpoint[LoginMessage] = get("login" :: Main.authApp){ m:Option[UsersData] =>
-    println("Login endpoint")
-    m match {
-      case Some(u) => Ok(LoginMessage(true, u.getRfid))
-      case _ => Ok(LoginMessage(false, "0"))
-    }
+  val login:Endpoint[LoginMessage] = get("login" :: Main.authApp){ u:UsersData =>
+    Ok(LoginMessage(true, u.getRfid))
   }
 
-  val rfid:Endpoint[Message] = post("rfid" :: path[String] :: Main.authApp){ (r:String, m:Option[UsersData]) =>
-    m match {
-      case Some(u) => {
+  val rfid:Endpoint[Message] = post("rfid" :: path[String] :: Main.authApp){ (r:String, u:UsersData) =>
         u.setRfid(r)
         User.updateUser(u)
         Ok(Message(u.getRfid))
-      }
-      case _ => Ok(Message("Failure"))
-    }
   }
 
-  val rfidGet:Endpoint[Message] = get("rfid"  :: Main.authApp){ m:Option[UsersData] =>
-    m match {
-      case Some(u) => {
+  val rfidGet:Endpoint[Message] = get("rfid"  :: Main.authApp){ u:UsersData =>
         Ok(Message(u.getRfid))
-      }
-      case _ => Ok(Message("Failure"))
-    }
   }
 
 
   val getCurrentNeighbourhood:Endpoint[Message] = get("profile" :: "neighbourhood" :: Main.authApp :: Main.retrieveNeighbourhood){
-    (m:Option[UsersData], n:NeighbourhoodData) =>
-      m match {
-        case Some(u) => Ok(Message(n.getName))
-        case _ => Ok(Message("failure"))
-      }
+    (m:UsersData, n:NeighbourhoodData) =>
+      Ok(Message(n.getName))
   }
 
   val getAllNeighbourhood:Endpoint[List[String]] = get("neighbourhoods" :: Main.authApp){
-    (m:Option[UsersData]) =>
-      m match {
-        case Some(u) => Ok(Neighbourhoods.getAll())
-        case _ => Ok(List[String]())
-      }
+    (m:UsersData) => Ok(Neighbourhoods.getAll())
   }
 
   val getNeighbourhoodByName:Endpoint[NeighbourhoodInfo] = get("neighbourhood" :: path[String] :: Main.authApp){
-    (s:String, m:Option[UsersData]) =>
-      m match {
-        case Some(u) => Ok(Neighbourhoods.getByName(s))
-        case _ => Ok(Neighbourhoods.getByName(s))
-      }
+    (s:String, m:UsersData) => Ok(Neighbourhoods.getByName(s))
   }
 
   val bleh: Endpoint[Message] = get("profil"){

@@ -22,10 +22,14 @@ object Main extends App{
   val parseSensor:Endpoint[SensorValue] = jsonBody[SensorValue]
   val parseSecret:Endpoint[Secret] = jsonBody[Secret]
 
-  val authApp:Endpoint[Option[UsersData]] = header("token").mapOutput(s =>
-    Ok(User.createOrRetrieve(s))
+  val authApp:Endpoint[UsersData] = header("token").mapOutput(s =>
+    User.createOrRetrieve(s) match {
+      case Some(u) => Ok(u)
+      case None => throw new Exception("Dead")
+    }
   ).handle{
     case e : Error.NotPresent => Unauthorized(e)
+    case e: Exception => Unauthorized(e)
   }
 
   val authOrchestrator:Endpoint[String] = header("token").mapOutput(s =>
