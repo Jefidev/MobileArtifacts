@@ -25,10 +25,10 @@ ENGINE = InnoDB;
 
 insert into Events values (default, 0, 'Trouvez et scannez le signe du Beffroi', 1, 'KYT-1-789', null, 'Scan');
 
-insert into Events values (default, 1, 'Départ de la route', 2, 'KYT-2-900', null, 'Enregistrement du départ');
-insert into Events values (default, 1, 'Arrivée de la route', 2, 'KYT-3-254', 2, 'Validation du trajet');
+insert into Events values (default, 1, 'Enregistrement au point de départ', 2, 'KYT-2-900', null, 'Enregistrement du départ');
+insert into Events values (default, 1, 'Enregistrement au point de destination', 2, 'KYT-3-254', 2, 'Validation du trajet');
 
-insert into Events values (default, 0, 'Coucher de soleil', 3, 'KYT-4-247', null, 'Scan du signe entre 16h et 18h');
+insert into Events values (default, 0, 'Scan du tag entre 16h00 et 18h00', 3, 'KYT-4-247', null, 'Scan');
 insert into Contexts values (4, 2, 100, 50);
 
 
