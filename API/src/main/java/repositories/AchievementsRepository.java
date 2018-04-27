@@ -30,7 +30,7 @@ public class AchievementsRepository extends Dao {
 
         List<Achievement> retVal = new ArrayList<>();
         for(Tuple t: tmp){
-            Achievement a = new Achievement(t.get(ach.id), t.get(ach.name), t.get(ach.description), t.get(done) != null, t.get(ach.points));
+            Achievement a = new Achievement(t.get(ach.id), t.get(ach.name), t.get(ach.description), t.get(done).getUserId() != null, t.get(ach.points));
             retVal.add(a);
         }
 
