@@ -48,7 +48,6 @@ public class AchievementsRepository extends Dao {
                 .where(ach.id.eq(id))
                 .fetchFirst();
 
-
         return new Achievement(t.get(ach.id), t.get(ach.name), t.get(ach.description), t.get(done).getUserId() != null, t.get(ach.points));
     }
 

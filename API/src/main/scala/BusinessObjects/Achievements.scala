@@ -33,7 +33,7 @@ object Achievements {
     if(event.getSecret == secret)
       true
     else
-      throw new EventException("Bad secret", 2)
+      throw EventException("Bad secret", 2)
 
   }
 
@@ -44,13 +44,29 @@ object Achievements {
     if(contextBroken == 0 )
       true
     else
-      throw new EventException("Contexte not respected", 3)
+      throw EventException("Contexte not respected", 3)
+  }
+
+
+  def checkDependency(u:UsersData, eventID:Int):Boolean = {
+    val preReq:Int = repo.getEvent(eventID).getPreRequise
+
+    preReq match {
+      case 0 => true
+      case b => {
+        if(repo.alreadyDone(u, b))
+          true
+        else
+          throw EventException(s"Prerequise - $b", 4)
+      }
+    }
   }
 
   def validateEvent(u:UsersData, secret:String, id:Int) = {
     if(!alreadyDone(u, id)){
       checkSecret(secret, id)
       checkContext(id)
+      checkDependency(u, id)
       //Mark as done
       repo.eventDone(id, u.getIdUsers)
     }

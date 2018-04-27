@@ -13,12 +13,16 @@ public class UsersRepository extends Dao {
         UsersData d = this.queryFactory.select(QUsers.Users).from(users).where(users.idUsers.eq(mail)).fetchFirst();
 
         if(d == null){
-            System.out.println("Addding user " + mail);
             this.queryFactory.insert(users).columns(users.idUsers).values(mail).execute();
             d = this.queryFactory.select(QUsers.Users).from(users).where(users.idUsers.eq(mail)).fetchFirst();
         }
 
         return d;
+    }
+
+    public UsersData getUserByRFID(String rfid){
+        QUsers users = new QUsers("Users");
+        return this.queryFactory.selectFrom(users).where(users.rfid.eq(rfid)).fetchFirst();
     }
 
     public void updateUser(String id, UsersData u){
