@@ -28,4 +28,33 @@ object AchievementsAPI {
     case e:Exception => Ok(MessageCode("System exception. Contact Jérôme", 42))
   }
 
+
+  val validateEventRFID:Endpoint[MessageCode] = post("orchestrator"::"achievement"::"read"::path[Int]:: Main.parseSecretRFID ::Main.authOrchestrator){
+    (id:Int, sec:SecretRFID , s:String) =>
+      User.getUserByRFID(sec.idRfid) match {
+        case Some(u) => {
+          Achievements.validateEvent(u, sec.secret, id)
+          Ok(MessageCode("Success", 1))
+        }
+        case None => Ok(MessageCode("RFID card is not linked to a user", 5))
+      }
+  }.handle{
+    case e:EventException => Ok(MessageCode(e.message, e.code))
+    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 42))
+  }
+
+  val validateWriteRFID:Endpoint[MessageCode] = post("orchestrator"::"achievement"::"write"::path[Int]:: Main.parseSecretRFID ::Main.authOrchestrator){
+    (id:Int, sec:SecretRFID , s:String) =>
+      User.getUserByRFID(sec.idRfid) match {
+        case Some(u) => {
+          Achievements.validateEvent(u, sec.secret, id)
+          Ok(MessageCode("Success", 1))
+        }
+        case None => Ok(MessageCode("RFID card is not linked to a user", 5))
+      }
+  }.handle{
+    case e:EventException => Ok(MessageCode(e.message, e.code))
+    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 42))
+  }
+
 }

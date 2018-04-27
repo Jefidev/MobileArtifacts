@@ -58,4 +58,8 @@ object User {
   def getUserByMail(id:String):UsersData = {
     usersRepository.getByID(id)
   }
+
+  def getUserByRFID(rfid:String):Option[UsersData] = {
+    Option(usersRepository.getUserByRFID(rfid))
+  }
 }

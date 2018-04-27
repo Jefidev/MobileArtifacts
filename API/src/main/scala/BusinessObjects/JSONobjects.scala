@@ -8,6 +8,7 @@ case class Event(eType: Int, id: Int, key: Int)
 case class Message(payload:String)
 case class Secret(secret:String)
 case class MessageCode(payload:String, code:Int)
+case class SecretRFID(idRfid:String, secret:String)
 
 case class Coordinate(lat:Float, longi:Float)
 case class LoginMessage(success:Boolean, rfid:String)

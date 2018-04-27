@@ -28,8 +28,7 @@ object Achievements {
     repo.alreadyDone(u, eventID)
   }
 
-  def checkSecret(secret:String, eventID:Int):Boolean = {
-    val event:EventsData = repo.getEvent(eventID)
+  def checkSecret(secret:String, event:EventsData):Boolean = {
     if(event.getSecret == secret)
       true
     else
@@ -48,8 +47,8 @@ object Achievements {
   }
 
 
-  def checkDependency(u:UsersData, eventID:Int):Boolean = {
-    val preReq:Int = repo.getEvent(eventID).getPreRequise
+  def checkDependency(u:UsersData, event:EventsData):Boolean = {
+    val preReq:Int = event.getPreRequise
 
     preReq match {
       case 0 => true
@@ -64,13 +63,16 @@ object Achievements {
 
   def validateEvent(u:UsersData, secret:String, id:Int) = {
     if(!alreadyDone(u, id)){
-      checkSecret(secret, id)
+      val event = repo.getEvent(id)
+      checkSecret(secret, event)
       checkContext(id)
-      checkDependency(u, id)
+      checkDependency(u, event)
+
       //Mark as done
       repo.eventDone(id, u.getIdUsers)
     }
     else
       Unit
   }
+
 }
