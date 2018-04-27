@@ -72,7 +72,7 @@ object Achievements {
       repo.eventDone(id, u.getIdUsers)
     }
     else
-      Unit
+      throw EventException("Already done", 5)
   }
 
 }

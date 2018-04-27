@@ -31,8 +31,10 @@ object AchievementsAPI {
 
   val validateEventRFID:Endpoint[MessageCode] = post("orchestrator"::"achievement"::"read"::path[Int]:: Main.parseSecretRFID ::Main.authOrchestrator){
     (id:Int, sec:SecretRFID , s:String) =>
+      print("Requête read reçue")
       User.getUserByRFID(sec.idRfid) match {
         case Some(u) => {
+          print("Requête read reçue  et rfid valide")
           Achievements.validateEvent(u, sec.secret, id)
           Ok(MessageCode("Success", 1))
         }
@@ -45,8 +47,10 @@ object AchievementsAPI {
 
   val validateWriteRFID:Endpoint[MessageCode] = post("orchestrator"::"achievement"::"write"::path[Int]:: Main.parseSecretRFID ::Main.authOrchestrator){
     (id:Int, sec:SecretRFID , s:String) =>
+      print("Requete write reçue")
       User.getUserByRFID(sec.idRfid) match {
         case Some(u) => {
+          print("Requete write reçue et rfid valide")
           Achievements.validateEvent(u, sec.secret, id)
           Ok(MessageCode("Success", 1))
         }
@@ -54,7 +58,10 @@ object AchievementsAPI {
       }
   }.handle{
     case e:EventException => Ok(MessageCode(e.message, e.code))
-    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 42))
+    case e:Exception => {
+      e.printStackTrace
+      Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 42))
+    }
   }
 
 }
