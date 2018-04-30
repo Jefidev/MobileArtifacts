@@ -40,6 +40,8 @@ object Achievements {
     val contexts:List[EventContext] = repo.getContext(eventId).asScala.toList
     val contextBroken:Int = contexts.count(x => !(x.min <= x.lastVal && x.lastVal < x.max))
 
+    //TODO Bad time slot
+
     if(contextBroken == 0 )
       true
     else

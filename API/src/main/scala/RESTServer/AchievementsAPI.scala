@@ -25,7 +25,7 @@ object AchievementsAPI {
           Ok(MessageCode("Success", 1))
   }.handle{
     case e:EventException => Ok(MessageCode(e.message, e.code))
-    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme", 42))
+    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme" + e.getMessage, 42))
   }
 
 
