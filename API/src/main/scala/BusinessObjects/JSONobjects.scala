@@ -27,4 +27,4 @@ case class OpenNeighbourhoods(name:String, points:List[Coordinate], sensors:List
 
 
 //Exceptions
-case class EventException(message:String, code:Int) extends Exception
+case class EventException(message:String, code:Int, idUser:String, idAchievement:Int) extends Exception

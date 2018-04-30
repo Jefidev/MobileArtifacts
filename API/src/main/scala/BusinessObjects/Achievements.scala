@@ -28,16 +28,16 @@ object Achievements {
     repo.alreadyDone(u, eventID)
   }
 
-  def checkSecret(secret:String, event:EventsData):Boolean = {
+  def checkSecret(secret:String, event:EventsData, u:UsersData):Boolean = {
     if(event.getSecret == secret)
       true
     else
-      throw EventException("Bad secret", 2)
+      throw EventException("Bad secret", 2, u.getIdUsers, event.getAchievement)
 
   }
 
-  def checkContext(eventId:Int):Boolean = {
-    val contexts:List[EventContext] = repo.getContext(eventId).asScala.toList
+  def checkContext(event:EventsData, u:UsersData):Boolean = {
+    val contexts:List[EventContext] = repo.getContext(event.getId).asScala.toList
     val contextBroken:Int = contexts.count(x => !(x.min <= x.lastVal && x.lastVal < x.max))
 
     //TODO Bad time slot
@@ -45,7 +45,7 @@ object Achievements {
     if(contextBroken == 0 )
       true
     else
-      throw EventException("Contexte not respected", 3)
+      throw EventException("Contexte not respected", 3, u.getIdUsers, event.getAchievement)
   }
 
 
@@ -58,23 +58,24 @@ object Achievements {
         if(repo.alreadyDone(u, b))
           true
         else
-          throw EventException(s"Prerequise - $b", 4)
+          throw EventException(s"Prerequise - $b", 4, u.getIdUsers, event.getAchievement)
       }
     }
   }
 
   def validateEvent(u:UsersData, secret:String, id:Int) = {
+    val event = repo.getEvent(id)
+
     if(!alreadyDone(u, id)){
-      val event = repo.getEvent(id)
-      checkSecret(secret, event)
-      checkContext(id)
+      checkSecret(secret, event, u)
+      checkContext(event, u)
       checkDependency(u, event)
 
       //Mark as done
       repo.eventDone(id, u.getIdUsers)
     }
     else
-      throw EventException("Already done", 5)
+      throw EventException("Already done", 5, u.getIdUsers, event.getAchievement)
   }
 
 }

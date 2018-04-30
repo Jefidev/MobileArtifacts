@@ -1,5 +1,7 @@
 drop table if exists schema_version;
 
+drop table if exists Logs;
+
 drop table if exists Contexts;
 
 drop table if exists Sensors;

@@ -62,7 +62,7 @@ object Main extends App{
     Profile.getAllNeighbourhood :+: Profile.getNeighbourhoodByName :+:
     bleh :+: SensorsAPI.testEndpoint :+: SensorsAPI.updateValue
     :+: AchievementsAPI.achievement :+: AchievementsAPI.achievements :+: AchievementsAPI.validateEvent
-    :+: AchievementsAPI.validateEventRFID :+: AchievementsAPI.validateWriteRFID
+    :+: AchievementsAPI.validateEventRFID :+: AchievementsAPI.validateWriteRFID :+: AchievementsAPI.achievementLog
     :+: OpenDataAPI.getNeighbourhoodInfo :+: OpenDataAPI.getAllNeighbourhoodsInfo)
     .toServiceAs[Application.Json]
 
