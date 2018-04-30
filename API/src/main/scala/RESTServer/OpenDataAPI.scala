@@ -22,4 +22,8 @@ object OpenDataAPI {
       }
   }
 
+  val getAllNeighbourhoodsInfo:Endpoint[List[OpenNeighbourhoods]] = get("open"::"neighbourhoods"::"all"){
+    Ok(Neighbourhoods.getAllInfo())
+  }
+
 }

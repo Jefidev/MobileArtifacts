@@ -16,18 +16,21 @@ object Neighbourhoods {
   }
 
   def getAllInfo():List[OpenNeighbourhoods] = {
-    for(i <- repo.getAll.asScala.toList) yield OpenNeighbourhoods(i.getName, repo.getAllCoordinates(i.getId).asScala.toList)
+    for(i <- repo.getAll.asScala.toList)
+      yield OpenNeighbourhoods(i.getName, repo.getAllCoordinates(i.getId).asScala.toList, getSensorsInfo(i.getId))
   }
 
   def getAll():List[String] = {
     for( i <- repo.getAll.asScala.toList) yield i.getName
   }
 
+  def getSensorsInfo(id:Int):List[SensorInfo] = {
+    for(i <- repo.getSensorsByNeighbourhood(id).asScala.toList)
+      yield SensorInfo(i.getType, i.getName, i.getLastValue)
+  }
+
   def getByName(s:String):NeighbourhoodInfo = {
     val n:NeighbourhoodData = repo.getOne(s)
-    val listSensors = for(i <- repo.getSensorsByNeighbourhood(n.getId).asScala.toList)
-      yield SensorInfo(i.getType, i.getName, i.getLastValue)
-
-    NeighbourhoodInfo(n.getName, n.getDescription, listSensors)
+    NeighbourhoodInfo(n.getName, n.getDescription, getSensorsInfo(n.getId))
   }
 }
