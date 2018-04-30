@@ -5,7 +5,7 @@ create table Sensors (
   orchestrator varchar(255),
   lastValue float,
   FOREIGN KEY (`orchestrator`)
-  REFERENCES `mobile`.`Orchestrators` (`token`)
+  REFERENCES Orchestrators(token)
 )
 ENGINE = InnoDB;
 

@@ -3,7 +3,7 @@ create table Orchestrators (
   name varchar(255),
   neighbourhood int,
   FOREIGN KEY (`neighbourhood`)
-  REFERENCES `mobile`.`Neighbourhood` (`id`)
+  REFERENCES Neighbourhood(id)
 )
 ENGINE = InnoDB;
 

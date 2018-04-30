@@ -29,6 +29,8 @@ object Achievements {
   }
 
   def checkSecret(secret:String, event:EventsData, u:UsersData):Boolean = {
+
+    //Test secret KYT-[0-9]+-[0-9]+
     if(event.getSecret == secret)
       true
     else
