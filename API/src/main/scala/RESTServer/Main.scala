@@ -23,6 +23,7 @@ object Main extends App{
   val parseSecret:Endpoint[Secret] = jsonBody[Secret]
   val parseMessage:Endpoint[Message] = jsonBody[Message]
   val parseSecretRFID:Endpoint[SecretRFID] = jsonBody[SecretRFID]
+  val parseCoordinate:Endpoint[Coordinate] = jsonBody[Coordinate]
 
   val authApp:Endpoint[UsersData] = header("token").mapOutput(s =>
     User.createOrRetrieve(s) match {
@@ -61,7 +62,8 @@ object Main extends App{
     Profile.getAllNeighbourhood :+: Profile.getNeighbourhoodByName :+:
     bleh :+: SensorsAPI.testEndpoint :+: SensorsAPI.updateValue
     :+: AchievementsAPI.achievement :+: AchievementsAPI.achievements :+: AchievementsAPI.validateEvent
-    :+: AchievementsAPI.validateEventRFID :+: AchievementsAPI.validateWriteRFID)
+    :+: AchievementsAPI.validateEventRFID :+: AchievementsAPI.validateWriteRFID
+    :+: OpenDataAPI.getNeighbourhoodInfo)
     .toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))

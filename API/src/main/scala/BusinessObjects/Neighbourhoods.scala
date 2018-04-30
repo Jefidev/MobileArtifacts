@@ -9,10 +9,14 @@ import scala.collection.JavaConverters._
   */
 object Neighbourhoods {
 
-  val repo = new NeighbourhoodRepository();
+  val repo = new NeighbourhoodRepository()
 
   def getNeighbourhood(c:Coordinate):Option[NeighbourhoodData] = {
     Option(repo.getNeighbourhood(c))
+  }
+
+  def getAllInfo():List[OpenNeighbourhoods] = {
+    for(i <- repo.getAll.asScala.toList) yield OpenNeighbourhoods(i.getName, repo.getAllCoordinates(i.getId).asScala.toList)
   }
 
   def getAll():List[String] = {

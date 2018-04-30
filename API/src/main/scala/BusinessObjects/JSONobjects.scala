@@ -22,6 +22,9 @@ case class SensorValue(id:Int, lastVal:Float)
 case class SensorInfo(sType:Int, name:String, value:Float)
 case class NeighbourhoodInfo(name:String, description:String, sensors:List[SensorInfo])
 
+//Données open data
+case class OpenNeighbourhoods(name:String, points:List[Coordinate])
+
 
 //Exceptions
 case class EventException(message:String, code:Int) extends Exception

@@ -1,10 +1,12 @@
 package repositories;
 
 import BusinessObjects.Coordinate;
+import BusinessObjects.OpenNeighbourhoods;
 import dao.Dao;
 import querydsl.*;
 
 import java.awt.geom.Path2D;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +43,26 @@ public class NeighbourhoodRepository extends Dao {
         }
 
         return null;
+    }
+
+
+    public List<Coordinate> getAllCoordinates(int NId){
+        QLien lien = new QLien("Lien");
+        QCoordinates coord = new QCoordinates("Coordinates");
+
+        List<CoordinatesData> c = this.queryFactory.select(QCoordinates.Coordinates).from(coord)
+                .innerJoin(lien).on(lien.coordinateID.eq(coord.id))
+                .where(lien.neighbourhoodId.eq(NId))
+                .orderBy(lien.ord.asc()).fetch();
+
+        List<Coordinate> res = new ArrayList<>();
+
+        for(CoordinatesData cur : c){
+            Coordinate tmp = new Coordinate(cur.getLatitude(), cur.getLongitude());
+            res.add(tmp);
+        }
+
+        return res;
     }
 
 
