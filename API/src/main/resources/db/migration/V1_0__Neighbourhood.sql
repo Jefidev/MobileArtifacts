@@ -1,7 +1,9 @@
 create table Neighbourhood (
   id int primary key auto_increment,
   name varchar(255),
-  description text
+  description text,
+  hub_lat float,
+  hub_long float
 )
 ENGINE = InnoDB;
 
@@ -24,8 +26,8 @@ create table lien (
 )
 ENGINE = InnoDB;
 
-insert into Neighbourhood VALUES (DEFAULT, 'St_Aubain', 'Sa place, ses églises, ses commerces');
-insert into Neighbourhood VALUES (DEFAULT, 'Citadelle', 'Du haut de la citadelle, quarante siecles vous contemplent');
+insert into Neighbourhood VALUES (DEFAULT, 'St_Aubain', 'Sa place, ses églises, ses commerces', 50.4659731, 4.8571952);
+insert into Neighbourhood VALUES (DEFAULT, 'Citadelle', 'Du haut de la citadelle, quarante siecles vous contemplent', 50.46361771271586, 4.866904987226462);
 
 insert into Coordinates VALUES (DEFAULT, 50.462848, 4.857915);
 insert into Coordinates VALUES (DEFAULT, 50.4616841, 4.8627377);

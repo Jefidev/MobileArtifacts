@@ -25,7 +25,7 @@ case class SensorInfo(sType:Int, name:String, value:Float)
 case class NeighbourhoodInfo(name:String, description:String, sensors:List[SensorInfo])
 
 //Données open data
-case class OpenNeighbourhoods(name:String, points:List[Coordinate], sensors:List[SensorInfo])
+case class OpenNeighbourhoods(name:String, points:List[Coordinate], sensors:List[SensorInfo], hub:Coordinate)
 
 
 //Exceptions
