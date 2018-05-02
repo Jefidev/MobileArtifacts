@@ -34,7 +34,7 @@ object Achievements {
     if(event.getSecret == secret)
       true
     else
-      throw EventException("Bad secret", 2, u.getIdUsers, event.getAchievement)
+      throw EventException("Le code scanné est invalide !", 2, u.getIdUsers, event.getAchievement)
 
   }
 
@@ -47,7 +47,7 @@ object Achievements {
     if(contextBroken == 0 )
       true
     else
-      throw EventException("Contexte not respected", 3, u.getIdUsers, event.getAchievement)
+      throw EventException("Le conditions pour scanner ce tag ne sont pas respectées !", 3, u.getIdUsers, event.getAchievement)
   }
 
 
@@ -60,7 +60,7 @@ object Achievements {
         if(repo.alreadyDone(u, b))
           true
         else
-          throw EventException(s"Prerequise - $b", 4, u.getIdUsers, event.getAchievement)
+          throw EventException("Vous avez sauté une étape dans la réalisation de l'achievement !", 4, u.getIdUsers, event.getAchievement)
       }
     }
   }
@@ -77,7 +77,7 @@ object Achievements {
       repo.eventDone(id, u.getIdUsers)
     }
     else
-      throw EventException("Already done", 5, u.getIdUsers, event.getAchievement)
+      throw EventException("Cette étape a déjà été réalisée !", 5, u.getIdUsers, event.getAchievement)
   }
 
 }
