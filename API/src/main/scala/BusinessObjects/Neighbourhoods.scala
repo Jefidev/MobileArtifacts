@@ -34,7 +34,4 @@ object Neighbourhoods {
     NeighbourhoodInfo(n.getName, n.getDescription, getSensorsInfo(n.getId))
   }
 
-  def getNeighbourhoodCenter(List[Coordinate]):Coordinate = {
-
-  }
 }

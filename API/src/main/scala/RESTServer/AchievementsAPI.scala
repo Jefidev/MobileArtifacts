@@ -21,7 +21,7 @@ object AchievementsAPI {
 
   val validateEvent:Endpoint[MessageCode] = post("achievement" :: "read" :: path[Int] :: Main.parseSecret :: Main.authApp){
     (idEvent:Int, s:Secret, u:UsersData) =>
-          val e:EventsData =Achievements.validateEvent(u, s.secret, idEvent)
+          val e:EventsData = Achievements.validateEvent(u, s.secret, idEvent)
           Ok(MessageCode("Success", e.getAchievement, e.getDescription, 1))
   }.handle{
     case e:EventException => {

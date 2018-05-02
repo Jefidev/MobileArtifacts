@@ -65,8 +65,17 @@ object Achievements {
     }
   }
 
+  def retrieveEvent(id:Int):EventsData = {
+    val e:Option[EventsData] = Option(repo.getEvent(id))
+
+    e match{
+      case Some(e) => e
+      case None => throw EventException("No event found", 6, "", new EventsData())
+    }
+  }
+
   def validateEvent(u:UsersData, secret:String, id:Int):EventsData  = {
-    val event:EventsData = repo.getEvent(id)
+    val event:EventsData = retrieveEvent(id)
 
     if(!alreadyDone(u, id)){
       checkSecret(secret, event, u)
