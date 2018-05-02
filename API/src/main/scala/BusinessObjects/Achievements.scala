@@ -34,7 +34,7 @@ object Achievements {
     if(event.getSecret == secret)
       true
     else
-      throw EventException("Bad secret", 2, u.getIdUsers, event.getAchievement)
+      throw EventException("Bad secret", 2, u.getIdUsers, event)
 
   }
 
@@ -47,7 +47,7 @@ object Achievements {
     if(contextBroken == 0 )
       true
     else
-      throw EventException("Contexte not respected", 3, u.getIdUsers, event.getAchievement)
+      throw EventException("Contexte not respected", 3, u.getIdUsers, event)
   }
 
 
@@ -60,13 +60,13 @@ object Achievements {
         if(repo.alreadyDone(u, b))
           true
         else
-          throw EventException(s"Prerequise - $b", 4, u.getIdUsers, event.getAchievement)
+          throw EventException(s"Prerequise - $b", 4, u.getIdUsers, event)
       }
     }
   }
 
-  def validateEvent(u:UsersData, secret:String, id:Int) = {
-    val event = repo.getEvent(id)
+  def validateEvent(u:UsersData, secret:String, id:Int):EventsData  = {
+    val event:EventsData = repo.getEvent(id)
 
     if(!alreadyDone(u, id)){
       checkSecret(secret, event, u)
@@ -75,9 +75,10 @@ object Achievements {
 
       //Mark as done
       repo.eventDone(id, u.getIdUsers)
+      event
     }
     else
-      throw EventException("Already done", 5, u.getIdUsers, event.getAchievement)
+      throw EventException("Already done", 5, u.getIdUsers, event)
   }
 
 }

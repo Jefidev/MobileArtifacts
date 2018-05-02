@@ -33,4 +33,8 @@ object Neighbourhoods {
     val n:NeighbourhoodData = repo.getOne(s)
     NeighbourhoodInfo(n.getName, n.getDescription, getSensorsInfo(n.getId))
   }
+
+  def getNeighbourhoodCenter(List[Coordinate]):Coordinate = {
+
+  }
 }
