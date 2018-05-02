@@ -3,7 +3,7 @@ package RESTServer
 import BusinessObjects._
 import io.finch.{Endpoint, Error, NotFound, Ok, Unauthorized, path}
 import io.finch.syntax._
-import querydsl.{LogsData, UsersData}
+import querydsl.{EventsData, LogsData, UsersData}
 
 /**
   * Created by jfink on 17/04/18.
@@ -21,14 +21,14 @@ object AchievementsAPI {
 
   val validateEvent:Endpoint[MessageCode] = post("achievement" :: "read" :: path[Int] :: Main.parseSecret :: Main.authApp){
     (idEvent:Int, s:Secret, u:UsersData) =>
-          Achievements.validateEvent(u, s.secret, idEvent)
-          Ok(MessageCode("Success", 1))
+          val e:EventsData = Achievements.validateEvent(u, s.secret, idEvent)
+          Ok(MessageCode("Success", e.getAchievement, e.getDescription, 1))
   }.handle{
     case e:EventException => {
-      LogsUtils.addLog(e.idAchievement, e.idUser, e.message)
-      Ok(MessageCode(e.message, e.code))
+      LogsUtils.addLog(e.event.getAchievement, e.idUser, e.message)
+      Ok(MessageCode(e.message, e.event.getAchievement,e.event.getDescription , e.code))
     }
-    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme" + e.getMessage, 42))
+    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme" + e.getMessage, 0, "", 42))
   }
 
 
@@ -36,35 +36,35 @@ object AchievementsAPI {
     (id:Int, sec:SecretRFID , s:String) =>
       User.getUserByRFID(sec.idRfid) match {
         case Some(u) => {
-          Achievements.validateEvent(u, sec.secret, id)
-          Ok(MessageCode("Success", 1))
+          val e:EventsData = Achievements.validateEvent(u, sec.secret, id)
+          Ok(MessageCode("Success", e.getAchievement, e.getDescription, 1))
         }
-        case None => Ok(MessageCode("RFID card is not linked to a user", 5))
+        case None => Ok(MessageCode("RFID card is not linked to a user", 0, "", 5))
       }
   }.handle{
     case e:EventException => {
-      LogsUtils.addLog(e.idAchievement, e.idUser, e.message)
-      Ok(MessageCode(e.message, e.code))
+      LogsUtils.addLog(e.event.getAchievement, e.idUser, e.message)
+      Ok(MessageCode(e.message, e.event.getAchievement, e.event.getDescription ,e.code))
     }
-    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 42))
+    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 0, "", 42))
   }
 
   val validateWriteRFID:Endpoint[MessageCode] = post("orchestrator"::"achievement"::"write"::path[Int]:: Main.parseSecretRFID ::Main.authOrchestrator){
     (id:Int, sec:SecretRFID , s:String) =>
       User.getUserByRFID(sec.idRfid) match {
         case Some(u) => {
-          Achievements.validateEvent(u, sec.secret, id)
-          Ok(MessageCode("Success", 1))
+          val e:EventsData =Achievements.validateEvent(u, sec.secret, id)
+          Ok(MessageCode("Success", e.getAchievement, e.getDescription, 1))
         }
-        case None => Ok(MessageCode("RFID card is not linked to a user", 5))
+        case None => Ok(MessageCode("RFID card is not linked to a user", 0, "", 5))
       }
   }.handle{
     case e:EventException => {
-      LogsUtils.addLog(e.idAchievement, e.idUser, e.message)
-      Ok(MessageCode(e.message, e.code))
+      LogsUtils.addLog(e.event.getAchievement, e.idUser, e.message)
+      Ok(MessageCode(e.message, e.event.getAchievement, e.event.getDescription, e.code))
     }
     case e:Exception => {
-      Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 42))
+      Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 0, "", 42))
     }
   }
 

@@ -1,5 +1,7 @@
 package BusinessObjects
 
+import querydsl.EventsData
+
 /**
   * Created by jfink on 03/04/18.
   */
@@ -7,7 +9,7 @@ package BusinessObjects
 case class Event(eType: Int, id: Int, key: Int)
 case class Message(payload:String)
 case class Secret(secret:String)
-case class MessageCode(payload:String, code:Int)
+case class MessageCode(payload:String, achievementID:Int, descriptionEvent:String ,code:Int)
 case class SecretRFID(idRfid:String, secret:String)
 
 case class Coordinate(lat:Float, longi:Float)
@@ -23,8 +25,8 @@ case class SensorInfo(sType:Int, name:String, value:Float)
 case class NeighbourhoodInfo(name:String, description:String, sensors:List[SensorInfo])
 
 //Données open data
-case class OpenNeighbourhoods(name:String, points:List[Coordinate], sensors:List[SensorInfo])
+case class OpenNeighbourhoods(name:String, points:List[Coordinate], sensors:List[SensorInfo], hub:Coordinate)
 
 
 //Exceptions
-case class EventException(message:String, code:Int, idUser:String, idAchievement:Int) extends Exception
+case class EventException(message:String, code:Int, idUser:String, event:EventsData) extends Exception

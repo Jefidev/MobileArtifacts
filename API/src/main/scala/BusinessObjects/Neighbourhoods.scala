@@ -17,7 +17,7 @@ object Neighbourhoods {
 
   def getAllInfo():List[OpenNeighbourhoods] = {
     for(i <- repo.getAll.asScala.toList)
-      yield OpenNeighbourhoods(i.getName, repo.getAllCoordinates(i.getId).asScala.toList, getSensorsInfo(i.getId))
+      yield OpenNeighbourhoods(i.getName, repo.getAllCoordinates(i.getId).asScala.toList, getSensorsInfo(i.getId), Coordinate(i.getHubLat, i.getHubLong))
   }
 
   def getAll():List[String] = {
@@ -33,4 +33,5 @@ object Neighbourhoods {
     val n:NeighbourhoodData = repo.getOne(s)
     NeighbourhoodInfo(n.getName, n.getDescription, getSensorsInfo(n.getId))
   }
+
 }
