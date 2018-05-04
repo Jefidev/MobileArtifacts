@@ -15,11 +15,19 @@ object Profile {
     Ok(LoginMessage(true, u.getRfid))
   }
 
-  val rfid:Endpoint[Message] = post("rfid" :: path[String] :: Main.authApp){ (r:String, u:UsersData) =>
-        u.setRfid(r)
-        User.updateUser(u)
-        Ok(Message(u.getRfid))
+  val rfid:Endpoint[RFIDcode] = post("rfid" :: path[String] :: Main.authApp){ (r:String, u:UsersData) =>
+    if(User.RFIDcheckSum(r)){
+      u.setRfid(r)
+      User.updateUser(u)
+      Ok(RFIDcode("Success", 1))
+    }
+    else{
+      Ok(RFIDcode("Bad value", 2))
+    }
+  }.handle{
+    case e:Exception => Ok(RFIDcode("Bad value", 2))
   }
+
 
   val rfidGet:Endpoint[Message] = get("rfid"  :: Main.authApp){ u:UsersData =>
         Ok(Message(u.getRfid))
