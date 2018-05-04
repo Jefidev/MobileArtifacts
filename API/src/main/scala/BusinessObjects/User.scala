@@ -62,4 +62,13 @@ object User {
   def getUserByRFID(rfid:String):Option[UsersData] = {
     Option(usersRepository.getUserByRFID(rfid))
   }
+
+
+  def RFIDcheckSum(rfid:String):Boolean = {
+    val splitted:Array[String] = rfid.split("-")
+    val result:Int = (6 * splitted.apply(0).toInt) % 67
+
+    splitted.apply(1).toInt == result
+  }
+
 }
