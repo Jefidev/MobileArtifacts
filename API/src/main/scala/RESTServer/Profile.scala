@@ -17,9 +17,15 @@ object Profile {
 
   val rfid:Endpoint[RFIDcode] = post("rfid" :: path[String] :: Main.authApp){ (r:String, u:UsersData) =>
     if(User.RFIDcheckSum(r)){
-      u.setRfid(r)
-      User.updateUser(u)
-      Ok(RFIDcode("Success", 1))
+
+      User.getUserByRFID(r) match {
+        case Some(u) => Ok(RFIDcode("Already assigned", 3))
+        case None => {
+          u.setRfid(r)
+          User.updateUser(u)
+          Ok(RFIDcode("Success", 1))
+        }
+      }
     }
     else{
       Ok(RFIDcode("Bad value", 2))
