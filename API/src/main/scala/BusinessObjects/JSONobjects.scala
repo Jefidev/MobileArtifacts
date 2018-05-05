@@ -22,7 +22,7 @@ case class AchievementDetail(achievement:Achievement, events:List[EventsDetail])
 case class EventContext(min:Float, max:Float, lastVal:Float, sensor:String)
 
 case class SensorValue(id:Int, lastVal:Float)
-case class SensorInfo(sType:Int, name:String, value:Float)
+case class SensorInfo(sType:Int, name:String, value:Float, dead:Boolean)
 case class NeighbourhoodInfo(name:String, description:String, sensors:List[SensorInfo])
 
 //Données open data

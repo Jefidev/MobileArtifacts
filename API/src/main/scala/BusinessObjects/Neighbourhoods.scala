@@ -1,7 +1,12 @@
 package BusinessObjects
 
+import java.sql.Timestamp
+import java.time.{Duration, Instant}
+import java.util.Date
+
 import querydsl.NeighbourhoodData
 import repositories.NeighbourhoodRepository
+
 import scala.collection.JavaConverters._
 
 /**
@@ -26,12 +31,17 @@ object Neighbourhoods {
 
   def getSensorsInfo(id:Int):List[SensorInfo] = {
     for(i <- repo.getSensorsByNeighbourhood(id).asScala.toList)
-      yield SensorInfo(i.getType, i.getName, i.getLastValue)
+      yield SensorInfo(i.getType, i.getName, i.getLastValue, isSensorDead(i.getLastUpdate))
   }
 
   def getByName(s:String):NeighbourhoodInfo = {
     val n:NeighbourhoodData = repo.getOne(s)
     NeighbourhoodInfo(n.getName, n.getDescription, getSensorsInfo(n.getId))
+  }
+
+  private def isSensorDead(timestamp: Timestamp):Boolean = {
+    val dateRef = Instant.now().minus(Duration.ofMinutes(4L))
+    timestamp.toInstant.plus(Duration.ofHours(2L)).isBefore(dateRef)
   }
 
 }
