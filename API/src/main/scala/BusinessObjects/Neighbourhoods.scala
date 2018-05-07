@@ -2,7 +2,6 @@ package BusinessObjects
 
 import java.sql.Timestamp
 import java.time.{Duration, Instant}
-import java.util.Date
 
 import querydsl.NeighbourhoodData
 import repositories.NeighbourhoodRepository
@@ -41,11 +40,7 @@ object Neighbourhoods {
 
   private def isSensorDead(timestamp: Timestamp):Boolean = {
     val dateRef = Instant.now().minus(Duration.ofMinutes(4L))
-
-    println(dateRef.toEpochMilli)
-    println(timestamp.getTime)
-
-    timestamp.toInstant.plus(Duration.ofHours(2L)).isBefore(dateRef)
+    timestamp.toInstant.isBefore(dateRef)
   }
 
 }
