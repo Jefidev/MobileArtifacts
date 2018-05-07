@@ -10,28 +10,28 @@ import io.finch._
 object OpenDataAPI {
 
   val getNeighbourhoodInfo:Endpoint[List[OpenNeighbourhoods]] = get("open" :: "neighbourhoods"){
-    Ok(Neighbourhoods.getAllInfo())
+    Ok(Neighbourhoods.getAllInfo()).withHeader("Access-Control-Allow-Origin" -> "*")
   }
 
   val getInfoByCoordinate:Endpoint[NeighbourhoodInfo] = get("open"::"neighbourhoods"::"info"::Main.parseCoordinate){
     (c:Coordinate) =>
       Neighbourhoods.getNeighbourhood(c) match {
-        case Some(n) => Ok(Neighbourhoods.getByName(n.getName))
-        case None => NotFound(new Exception("No neighbourhoods matching the coordinates"))
+        case Some(n) => Ok(Neighbourhoods.getByName(n.getName)).withHeader("Access-Control-Allow-Origin" -> "*")
+        case None => NotFound(new Exception("No neighbourhoods matching the coordinates")).withHeader("Access-Control-Allow-Origin" -> "*")
       }
   }
 
   val getAllNeighbourhoodsInfo:Endpoint[List[OpenNeighbourhoods]] = get("open"::"neighbourhoods"::"all"){
-    Ok(Neighbourhoods.getAllInfo())
+    Ok(Neighbourhoods.getAllInfo()).withHeader("Access-Control-Allow-Origin" -> "*")
   }
 
   val getNameNeighbourhood:Endpoint[JsonList] = get ("open"::"neighbourhoods"::"names"){
-    Ok(JsonList(Neighbourhoods.getAll()))
+    Ok(JsonList(Neighbourhoods.getAll())).withHeader("Access-Control-Allow-Origin" -> "*")
   }
 
   val getInfoByName:Endpoint[NeighbourhoodInfo] = get("open"::"neighbourhoods"::path[String]){
     (name:String) =>
-      Ok(Neighbourhoods.getByName(name))
+      Ok(Neighbourhoods.getByName(name)).withHeader("Access-Control-Allow-Origin" -> "*")
   }
 
 }
