@@ -19,6 +19,15 @@ public class LogsRepository extends Dao {
     }
 
 
+    public List<String> getUniqueMessages(String idUser, int idAchievements){
+        QLogs logs = new QLogs("Logs");
+        return this.queryFactory.selectDistinct(logs.message)
+                .from(logs)
+                .where(logs.idAchievement.eq(idAchievements).and(logs.idUser.eq(idUser)))
+                .fetch();
+    }
+
+
     public void deleteLogsByAchievements(String idUser, int idAchievements){
         QLogs logs = new QLogs("Logs");
         this.queryFactory.delete(logs)

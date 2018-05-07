@@ -14,6 +14,12 @@ object LogsUtils {
       yield Message(i.getMessage)
   }
 
+
+  def getUniqueMessage(idAchievement:Int, idUser:String):List[Message] = {
+    for(i <- repo.getUniqueMessages(idUser, idAchievement).asScala.toList)
+      yield Message(i)
+  }
+
   def deleteByAchievements(idAchievement:Int, idUser:String):Unit = {
     repo.deleteLogsByAchievements(idUser,idAchievement)
   }

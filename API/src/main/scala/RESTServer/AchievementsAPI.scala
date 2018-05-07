@@ -69,11 +69,11 @@ object AchievementsAPI {
   }
 
 
-  val achievementLog:Endpoint[Set[Message]] = get("achievement"::"logs"::path[Int]::Main.authApp){
+  val achievementLog:Endpoint[List[Message]] = get("achievement"::"logs"::path[Int]::Main.authApp){
     (idAchievement:Int, u:UsersData) =>
-      val tmp:List[Message] = LogsUtils.getLogsMessage(idAchievement, u.getIdUsers)
+      val tmp:List[Message] = LogsUtils.getUniqueMessage(idAchievement, u.getIdUsers)
       LogsUtils.deleteByAchievements(idAchievement, u.getIdUsers)
-      Ok(tmp.toSet)
+      Ok(tmp)
   }
 
 }
