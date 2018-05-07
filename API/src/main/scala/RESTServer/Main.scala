@@ -19,6 +19,9 @@ import querydsl.{NeighbourhoodData, UsersData}
 object Main extends App{
 
   //Parsing json value
+  /**
+    * All these endpoint should be
+    */
   val parseSensor:Endpoint[SensorValue] = jsonBody[SensorValue]
   val parseSecret:Endpoint[Secret] = jsonBody[Secret]
   val parseMessage:Endpoint[Message] = jsonBody[Message]
