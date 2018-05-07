@@ -41,6 +41,10 @@ object Neighbourhoods {
 
   private def isSensorDead(timestamp: Timestamp):Boolean = {
     val dateRef = Instant.now().minus(Duration.ofMinutes(4L))
+
+    println(dateRef.toEpochMilli)
+    println(timestamp.getTime)
+
     timestamp.toInstant.plus(Duration.ofHours(2L)).isBefore(dateRef)
   }
 

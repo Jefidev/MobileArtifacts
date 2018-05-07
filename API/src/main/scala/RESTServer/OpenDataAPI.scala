@@ -1,7 +1,6 @@
 package RESTServer
 
-import BusinessObjects.{Coordinate, NeighbourhoodInfo, Neighbourhoods, OpenNeighbourhoods}
-import io.finch.Endpoint
+import BusinessObjects._
 import io.finch.syntax._
 import io.finch._
 
@@ -24,6 +23,15 @@ object OpenDataAPI {
 
   val getAllNeighbourhoodsInfo:Endpoint[List[OpenNeighbourhoods]] = get("open"::"neighbourhoods"::"all"){
     Ok(Neighbourhoods.getAllInfo())
+  }
+
+  val getNameNeighbourhood:Endpoint[JsonList] = get ("open"::"neighbourhoods"::"names"){
+    Ok(JsonList(Neighbourhoods.getAll()))
+  }
+
+  val getInfoByName:Endpoint[NeighbourhoodInfo] = get("open"::"neighbourhoods"::path[String]){
+    (name:String) =>
+      Ok(Neighbourhoods.getByName(name))
   }
 
 }
