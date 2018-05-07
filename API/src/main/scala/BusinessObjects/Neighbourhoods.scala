@@ -30,7 +30,7 @@ object Neighbourhoods {
 
   def getSensorsInfo(id:Int):List[SensorInfo] = {
     for(i <- repo.getSensorsByNeighbourhood(id).asScala.toList)
-      yield SensorInfo(i.getType, i.getName, i.getLastValue, isSensorDead(i.getLastUpdate))
+      yield SensorInfo(i.getType, i.getName, i.getLastValue, isSensorDead(i.getLastUpdate, i.getLastValue))
   }
 
   def getByName(s:String):NeighbourhoodInfo = {
@@ -38,9 +38,9 @@ object Neighbourhoods {
     NeighbourhoodInfo(n.getName, n.getDescription, getSensorsInfo(n.getId))
   }
 
-  private def isSensorDead(timestamp: Timestamp):Boolean = {
+  private def isSensorDead(timestamp: Timestamp, value: Float):Boolean = {
     val dateRef = Instant.now().minus(Duration.ofMinutes(4L))
-    timestamp.toInstant.isBefore(dateRef)
+    timestamp.toInstant.isBefore(dateRef) || value < -900
   }
 
 }
