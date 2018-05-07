@@ -4,8 +4,6 @@ import BusinessObjects.{Message, Orchestrators, SensorValue}
 import io.finch.{Endpoint, Ok}
 import io.finch.syntax._
 import io.finch._
-import querydsl.SensorsData
-import repositories.SensorsRepository
 
 /**
   * Created by jfink on 17/04/18.
