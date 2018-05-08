@@ -61,12 +61,13 @@ insert into lien VALUES (1, 5, 5);
 
 #citadelle
 insert into lien VALUES (2, 2, 1);
-insert into lien VALUES (2, 6, 2);
-insert into lien VALUES (2, 7, 3);
-insert into lien VALUES (2, 8, 4);
-insert into lien VALUES (2, 9, 5);
-insert into lien VALUES (2, 10, 6);
-insert into lien VALUES (2, 11, 7);
+insert into lien VALUES (2, 3, 2);
+insert into lien VALUES (2, 6, 3);
+insert into lien VALUES (2, 7, 4);
+insert into lien VALUES (2, 8, 5);
+insert into lien VALUES (2, 9, 6);
+insert into lien VALUES (2, 10,7);
+insert into lien VALUES (2, 11, 8);
 
 #jambe
 insert into lien VALUES (3, 9, 1);
