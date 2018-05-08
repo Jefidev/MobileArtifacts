@@ -60,7 +60,7 @@ insert into lien VALUES (1, 4, 4);
 insert into lien VALUES (1, 5, 5);
 
 #citadelle
-insert into lien VALUES (2, 5, 1);
+insert into lien VALUES (2, 1, 1);
 insert into lien VALUES (2, 2, 2);
 insert into lien VALUES (2, 6, 3);
 insert into lien VALUES (2, 7, 4);
