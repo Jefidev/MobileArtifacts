@@ -67,7 +67,7 @@ object Main extends App{
     :+: AchievementsAPI.achievement :+: AchievementsAPI.achievements :+: AchievementsAPI.validateEvent
     :+: AchievementsAPI.validateEventRFID :+: AchievementsAPI.validateWriteRFID :+: AchievementsAPI.achievementLog
     :+: OpenDataAPI.getNeighbourhoodInfo :+: OpenDataAPI.getAllNeighbourhoodsInfo
-    :+: OpenDataAPI.getNameNeighbourhood :+: OpenDataAPI.getInfoByName)
+    :+: OpenDataAPI.getNameNeighbourhood :+: OpenDataAPI.getInfoByName :+: OpenDataAPI.getInfoByCoordinate)
     .toServiceAs[Application.Json]
 
   Await.ready(Http.server.serve(":8081", api))

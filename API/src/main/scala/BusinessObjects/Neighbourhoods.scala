@@ -29,8 +29,24 @@ object Neighbourhoods {
   }
 
   def getSensorsInfo(id:Int):List[SensorInfo] = {
-    for(i <- repo.getSensorsByNeighbourhood(id).asScala.toList)
+    val brut = for(i <- repo.getSensorsByNeighbourhood(id).asScala.toList)
       yield SensorInfo(i.getType, i.getName, i.getLastValue, isSensorDead(i.getLastUpdate, i.getLastValue))
+
+    //Aggregation des données de sensor
+    println(brut.groupBy(_.sType))
+    brut.groupBy(_.sType).map(b => aggregation(b._2)).toList
+  }
+
+  private def aggregation(list: List[SensorInfo]):SensorInfo = {
+    println(list)
+    val sensorOk = list.filter(s => !s.dead)
+
+    if(sensorOk.isEmpty)
+      list.head
+    else{
+      val avg = sensorOk.map(_.value).sum / sensorOk.length
+      SensorInfo(sensorOk.head.sType, sensorOk.head.name, avg, sensorOk.head.dead)
+    }
   }
 
   def getByName(s:String):NeighbourhoodInfo = {

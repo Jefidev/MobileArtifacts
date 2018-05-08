@@ -25,7 +25,7 @@ object OpenDataAPI {
     * @note Should have json body in format {lat: float, longi: float}
     * @return [[BusinessObjects.NeighbourhoodInfo]]
     */
-  val getInfoByCoordinate:Endpoint[NeighbourhoodInfo] = get("open"::"neighbourhoods"::"info"::Main.parseCoordinate){
+  val getInfoByCoordinate:Endpoint[NeighbourhoodInfo] = post("open"::"neighbourhoods"::"info"::Main.parseCoordinate){
     (c:Coordinate) =>
       Neighbourhoods.getNeighbourhood(c) match {
         case Some(n) => Ok(Neighbourhoods.getByName(n.getName)).withHeader("Access-Control-Allow-Origin" -> "*")
