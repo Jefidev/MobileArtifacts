@@ -90,4 +90,6 @@ object Achievements {
       throw EventException("Cette étape a déjà été réalisée !", 5, u.getIdUsers, event)
   }
 
+  def checkAlreadyWrite()
+
 }

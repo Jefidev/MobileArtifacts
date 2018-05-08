@@ -60,8 +60,6 @@ object User {
   }
 
   def getUserByRFID(rfid:String):Option[UsersData] = {
-    println("Retrievig user by rfid")
-    println(rfid)
     Option(usersRepository.getUserByRFID(rfid))
   }
 
