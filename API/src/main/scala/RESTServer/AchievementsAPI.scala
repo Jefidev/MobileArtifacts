@@ -56,7 +56,7 @@ object AchievementsAPI {
           val e:EventsData =Achievements.validateEvent(u, sec.secret, id)
           Ok(MessageCode("Success", e.getAchievement, e.getDescription, 1))
         }
-        case None => Ok(MessageCode("RFID card is not linked to a user", 0, "", 5))
+        case None => Ok(MessageCode("RFID card is not linked to a user", 0, "", 18))
       }
   }.handle{
     case e:EventException => {
