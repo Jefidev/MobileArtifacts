@@ -33,12 +33,10 @@ object Neighbourhoods {
       yield SensorInfo(i.getType, i.getName, i.getLastValue, isSensorDead(i.getLastUpdate, i.getLastValue))
 
     //Aggregation des données de sensor
-    println(brut.groupBy(_.sType))
     brut.groupBy(_.sType).map(b => aggregation(b._2)).toList
   }
 
   private def aggregation(list: List[SensorInfo]):SensorInfo = {
-    println(list)
     val sensorOk = list.filter(s => !s.dead)
 
     if(sensorOk.isEmpty)

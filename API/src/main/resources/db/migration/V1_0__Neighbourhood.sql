@@ -28,7 +28,7 @@ ENGINE = InnoDB;
 
 insert into Neighbourhood VALUES (DEFAULT, 'St_Aubain', 'Sa place, ses églises, ses commerces', 50.464361, 4.860737);
 insert into Neighbourhood VALUES (DEFAULT, 'Citadelle', 'C\'est beau mais c\'est haut', 50.461305, 4.868951);
-insert into Neighbourhood VALUES (DEFAULT, 'Jambe', 'La ou y\'a le ciné', 50.455693, 4.873420);
+insert into Neighbourhood VALUES (DEFAULT, 'Jambes', 'La ou y\'a le ciné', 50.455693, 4.873420);
 
 #st aubain
 insert into Coordinates VALUES (DEFAULT, 50.4667340, 4.8544550);
