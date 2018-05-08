@@ -38,17 +38,19 @@ insert into Coordinates VALUES (DEFAULT, 50.4652450, 4.8635640);
 insert into Coordinates VALUES (DEFAULT, 50.4679090, 4.8576090);
 
 #citadelle
+insert into Coordinates VALUES (DEFAULT, 50.4614382, 4.8474598);
+insert into Coordinates VALUES (DEFAULT, 50.4552636, 4.8457432);
+insert into Coordinates VALUES (DEFAULT, 50.4538427, 4.8617935);
 insert into Coordinates VALUES (DEFAULT, 50.4566840, 4.8637350);
 insert into Coordinates VALUES (DEFAULT, 50.4617150, 4.8710790);
 insert into Coordinates VALUES (DEFAULT, 50.4620430, 4.8699200);
-insert into Coordinates VALUES (DEFAULT, 50.4617380, 4.8629250);
+
 
 #jambe
 insert into Coordinates VALUES (DEFAULT, 50.465499, 4.883207);
 insert into Coordinates VALUES (DEFAULT, 50.456362, 4.885151);
 insert into Coordinates VALUES (DEFAULT, 50.449346, 4.868725);
 insert into Coordinates VALUES (DEFAULT, 50.453882, 4.863146);
-
 
 #st aubain
 insert into lien VALUES (1, 1, 1);
@@ -63,12 +65,14 @@ insert into lien VALUES (2, 6, 2);
 insert into lien VALUES (2, 7, 3);
 insert into lien VALUES (2, 8, 4);
 insert into lien VALUES (2, 9, 5);
+insert into lien VALUES (2, 10, 6);
+insert into lien VALUES (2, 11, 7);
 
 #jambe
-insert into lien VALUES (3, 6, 1);
-insert into lien VALUES (3, 7, 2);
-insert into lien VALUES (3, 10, 3);
-insert into lien VALUES (3, 11, 4);
-insert into lien VALUES (3, 12, 5);
-insert into lien VALUES (3, 13, 6);
+insert into lien VALUES (3, 9, 1);
+insert into lien VALUES (3, 10, 2);
+insert into lien VALUES (3, 12, 3);
+insert into lien VALUES (3, 13, 4);
+insert into lien VALUES (3, 14, 5);
+insert into lien VALUES (3, 15, 6);
 
