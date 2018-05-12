@@ -74,6 +74,21 @@ object Achievements {
     }
   }
 
+  def retrieveEventBySecret(secret:String):EventsData = {
+    val e:Option[EventsData] = Option(repo.getEventBySecret(secret))
+
+    e match{
+      case Some(e) => e
+      case None => throw EventException("Aucune correspondance pour le tag scanné !", 6, "", new EventsData())
+    }
+  }
+
+  def validatePatrimoineEvent(u:UsersData, secret:String):EventsData = {
+    val event:EventsData = retrieveEventBySecret(secret)
+    validateEvent(u, secret, event.getId)
+  }
+
+
   def validateEvent(u:UsersData, secret:String, id:Int):EventsData  = {
     val event:EventsData = retrieveEvent(id)
 

@@ -19,6 +19,19 @@ object AchievementsAPI {
   }
 
 
+  val validatePatrimoineEvent = post("achievement" :: "read" :: Main.parseSecret :: Main.authApp){
+    (s:Secret, u:UsersData) =>
+      val e:EventsData = Achievements.validatePatrimoineEvent(u, s.secret)
+      Ok(MessageCode("Success", e.getAchievement, e.getDescription, 1))
+  }.handle{
+    case e:EventException => {
+      LogsUtils.addLog(e.event.getAchievement, e.idUser, e.message)
+      Ok(MessageCode(e.message, e.event.getAchievement,e.event.getDescription , e.code))
+    }
+    case e:Exception => Ok(MessageCode("System exception. Contact Jérôme" + e.getMessage, 0, "", 42))
+  }
+
+
   val validateEvent:Endpoint[MessageCode] = post("achievement" :: "read" :: path[Int] :: Main.parseSecret :: Main.authApp){
     (idEvent:Int, s:Secret, u:UsersData) =>
           val e:EventsData = Achievements.validateEvent(u, s.secret, idEvent)

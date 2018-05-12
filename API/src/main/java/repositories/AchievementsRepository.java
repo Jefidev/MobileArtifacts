@@ -89,6 +89,11 @@ public class AchievementsRepository extends Dao {
         return this.queryFactory.selectFrom(event).where(event.id.eq(id)).fetchFirst();
     }
 
+    public EventsData getEventBySecret(String secret){
+        QEvents event = new QEvents("Events");
+        return this.queryFactory.selectFrom(event).where(event.secret.eq(secret)).fetchFirst();
+    }
+
 
     public List<EventContext> getContext(int id){
         QContexts cont = new QContexts("Contexts");
