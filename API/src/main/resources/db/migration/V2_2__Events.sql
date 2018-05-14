@@ -32,18 +32,18 @@ insert into Events values (default, 0, 'Scan d\'un tag au soleil couchant (16-18
 insert into Contexts values (4, 2, 300, 100);
 
 # Eglises
-insert into Events values (default, 0, 'L\’église st loup', 4, 'de399644560364ab43f3a7bedea8331d', null, 'Scan');
-insert into Events values (default, 0, 'L\’ancienne abbaye Notre-Dame du Vivier', 4, 'd1a9ddbef75820a135390ec83804c631', null, 'Scan');
-insert into Events values (default, 0, 'L\’église Notre-Dame ', 4, '683221f4b07f6fc57ebfa8ad2553377b', null, 'Scan');
-insert into Events values (default, 0, 'L\’église Saint-Jean Baptiste', 4, 'e60819b7e26a755d1235ef03bd3d8028', null, 'Scan');
-insert into Events values (default, 0, 'Le calvaire de Frizet à Vedrin', 4, '2e7e167381dd45ec31f5034ca0acd232', null, 'Scan');
-insert into Events values (default, 0, 'L\’église Notre-Dame de Gelbressée', 4, '7119a940a48429ebada505fe3749ad30', null, 'Scan');
+insert into Events values (default, 0, 'L\’église st loup', 4, '935bcbd2099c692ea646ac662bd7771e', null, 'Scan');
+insert into Events values (default, 0, 'L\’ancienne abbaye Notre-Dame du Vivier', 4, 'd294ab1155ee50a7611ea3913c5ad31b', null, 'Scan');
+insert into Events values (default, 0, 'L\’église Notre-Dame ', 4, '7f20be940206aa8231d5c53be461e48e', null, 'Scan');
+insert into Events values (default, 0, 'L\’église Saint-Jean Baptiste', 4, 'd5789645b8fcd373b14a5d27144e9143', null, 'Scan');
+insert into Events values (default, 0, 'Le calvaire de Frizet à Vedrin', 4, '9b0e356cd0589d2763ca3e2c79a00cfc', null, 'Scan');
+insert into Events values (default, 0, 'L\’église Notre-Dame de Gelbressée', 4, 'de0d258a6dc0437b1b156192cff588be', null, 'Scan');
 
 
 # Moyen âge
-insert into Events values (default, 0, 'Immeuble, rue des Brasseurs, 5', 5, 'c183b0fb2c1ee21c60245a23f70f8e3c', null, 'Scan');
-insert into Events values (default, 0, 'Ancien donjon et la maison seigneuriale d’Anhaive', 5, '0fd7470772174225efca8340cd41565f', null, 'Scan');
-insert into Events values (default, 0, 'La ferme-château et la chapelle Sainte-Apolline de Wartet', 5, 'c80b54f521918048decc695743573ffb', null, 'Scan');
+insert into Events values (default, 0, 'Immeuble, rue des Brasseurs, 5', 5, '7985bc6dd6b763c73e4f51965269c543', null, 'Scan');
+insert into Events values (default, 0, 'Ancien donjon et la maison seigneuriale d’Anhaive', 5, '768a205e6929951e77b2b8c5a66ca78b', null, 'Scan');
+insert into Events values (default, 0, 'La ferme-château et la chapelle Sainte-Apolline de Wartet', 5, '132674b05d9d6acdba599aac61c16dbf', null, 'Scan');
 
 
 
