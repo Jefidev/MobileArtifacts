@@ -19,9 +19,9 @@ object AchievementsAPI {
   }
 
 
-  val validatePatrimoineEvent = post("achievement" :: "read" :: Main.parseSecret :: Main.authApp){
+  val validatePatrimoineEvent:Endpoint[MessageCode] = post("achievement" :: "read" :: Main.parseSecret :: Main.authApp){
     (s:Secret, u:UsersData) =>
-      println("patrimoine")
+      println(s.secret)
       val e:EventsData = Achievements.validatePatrimoineEvent(u, s.secret)
       Ok(MessageCode("Success", e.getAchievement, e.getDescription, 1))
   }.handle{
@@ -35,7 +35,6 @@ object AchievementsAPI {
 
 
   val validateEvent:Endpoint[MessageCode] = post("achievement" :: "read" :: path[Int] :: Main.parseSecret :: Main.authApp){
-        println("event")
     (idEvent:Int, s:Secret, u:UsersData) =>
           val e:EventsData = Achievements.validateEvent(u, s.secret, idEvent)
           Ok(MessageCode("Success", e.getAchievement, e.getDescription, 1))

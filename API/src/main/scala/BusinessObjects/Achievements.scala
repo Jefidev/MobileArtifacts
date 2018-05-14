@@ -84,9 +84,9 @@ object Achievements {
   }
 
   def validatePatrimoineEvent(u:UsersData, secret:String):EventsData = {
-    val event:Option[EventsData] = Option(retrieveEventBySecret(secret))
     println("patrimoine :")
     println(secret)
+    val event:Option[EventsData] = Option(retrieveEventBySecret(secret))
 
     event match {
       case Some(e) => validateEvent(u, secret, e.getId)
