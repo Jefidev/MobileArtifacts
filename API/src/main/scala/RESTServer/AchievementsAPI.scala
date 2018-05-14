@@ -28,6 +28,7 @@ object AchievementsAPI {
       LogsUtils.addLog(e.event.getAchievement, e.idUser, e.message)
       Ok(MessageCode(e.message, e.event.getAchievement,e.event.getDescription , e.code))
     }
+    case e:EventNotFoundException => Ok(MessageCode(e.message, 0,"" , e.code))
     case e:Exception => Ok(MessageCode("System exception. Contact Jérôme" + e.getMessage, 0, "", 42))
   }
 
@@ -41,6 +42,7 @@ object AchievementsAPI {
       LogsUtils.addLog(e.event.getAchievement, e.idUser, e.message)
       Ok(MessageCode(e.message, e.event.getAchievement,e.event.getDescription , e.code))
     }
+    case e:EventNotFoundException => Ok(MessageCode(e.message, 0,"" , e.code))
     case e:Exception => Ok(MessageCode("System exception. Contact Jérôme" + e.getMessage, 0, "", 42))
   }
 
@@ -59,6 +61,7 @@ object AchievementsAPI {
       LogsUtils.addLog(e.event.getAchievement, e.idUser, e.message)
       Ok(MessageCode(e.message, e.event.getAchievement, e.event.getDescription ,e.code))
     }
+    case e:EventNotFoundException => Ok(MessageCode(e.message, 0,"" , e.code))
     case e:Exception => Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 0, "", 42))
   }
 
@@ -76,6 +79,7 @@ object AchievementsAPI {
       LogsUtils.addLog(e.event.getAchievement, e.idUser, e.message)
       Ok(MessageCode(e.message, e.event.getAchievement, e.event.getDescription, e.code))
     }
+    case e:EventNotFoundException => Ok(MessageCode(e.message, 0,"" , e.code))
     case e:Exception => {
       Ok(MessageCode("System exception. Contact Jérôme avec le message : " + e.getMessage, 0, "", 42))
     }

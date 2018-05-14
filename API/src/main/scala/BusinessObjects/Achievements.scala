@@ -70,7 +70,7 @@ object Achievements {
 
     e match{
       case Some(e) => e
-      case None => throw EventException("Aucune correspondance pour le tag scanné !", 6, "", new EventsData())
+      case None => throw EventNotFoundException("Aucune correspondance pour le tag scanné !", 6)
     }
   }
 
@@ -79,16 +79,18 @@ object Achievements {
 
     e match{
       case Some(e) => e
-      case None => throw EventException("Aucune correspondance pour le tag scanné !", 6, "", new EventsData())
+      case None => throw EventNotFoundException("Aucune correspondance pour le tag scanné !", 6)
     }
   }
 
   def validatePatrimoineEvent(u:UsersData, secret:String):EventsData = {
     val event:Option[EventsData] = Option(retrieveEventBySecret(secret))
+    println("patrimoine :")
+    println(secret)
 
     event match {
       case Some(e) => validateEvent(u, secret, e.getId)
-      case None => throw EventException("Aucune correspondance pour le tag scanné !", 6, "", new EventsData())
+      case None => throw EventNotFoundException("Aucune correspondance pour le tag scanné !", 6)
     }
   }
 
