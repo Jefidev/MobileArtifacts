@@ -32,6 +32,7 @@ insert into Events values (default, 0, 'Scan d\'un tag au soleil couchant (16-18
 insert into Contexts values (4, 2, 300, 100);
 
 # Eglises
+insert into Events values (default, 0, 'L\’église st loup', 4, 'de399644560364ab43f3a7bedea8331d', null, 'Scan');
 insert into Events values (default, 0, 'L\’ancienne abbaye Notre-Dame du Vivier', 4, 'd1a9ddbef75820a135390ec83804c631', null, 'Scan');
 insert into Events values (default, 0, 'L\’église Notre-Dame ', 4, '683221f4b07f6fc57ebfa8ad2553377b', null, 'Scan');
 insert into Events values (default, 0, 'L\’église Saint-Jean Baptiste', 4, 'e60819b7e26a755d1235ef03bd3d8028', null, 'Scan');
